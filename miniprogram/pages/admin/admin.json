@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "mp-tabs": "@miniprogram-component-plus/tabs",
+    "articles": "../../components/articles/articles",
+    "manage": "../../components/manage/manage"
+  }
+}

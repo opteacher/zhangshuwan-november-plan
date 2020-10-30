@@ -1,0 +1,18 @@
+<view class="container">
+  <mp-form id="form">
+    <mp-cells title="基本信息" footer="系统会验证信息真实，请如实填写">
+      <mp-cell prop="author" title="作者" ext-class="">
+        <input bindinput="onInputAuthor" data-field="author" class="weui-input" placeholder="请输入姓名"/>
+      </mp-cell>
+      <mp-cell prop="dept" title="部门" ext-class="" link>
+        <picker bindchange="onDeptChange" value="{{deptIdx}}" range="{{depts}}">
+            <view class="weui-select weui-select_in-select-after">{{depts[deptIdx]}}</view>
+        </picker>
+      </mp-cell>
+    </mp-cells>
+    <view class="weui-btn-area">
+        <button class="weui-btn" type="primary" loading="{{subLoading}}" bindtap="onClickNext">下一步</button>
+    </view>
+  </mp-form>
+</view>
+<mp-toptips msg="{{message.text}}" type="{{message.type}}" show="{{message.text}}"/>

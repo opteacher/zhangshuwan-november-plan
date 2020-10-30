@@ -1,0 +1,34 @@
+.weui-tabs {
+  height: 100%;
+}
+
+.weui-tabs-bar__wrp {
+  border-bottom: 1px solid #eee;
+  margin-top: 10px;
+  height: 34px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+}
+
+.weui-tabs-swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.tab-content {
+  height: 100%;
+  width: 100%;
+  margin-top: 44px;
+}
+
+.weui-tabs-bar__title {
+  margin: 0px 10px;
+}
+
+.tab-bar-title__selected {
+  font-size: 20px;
+  font-weight: bold;
+}

@@ -1,0 +1,14 @@
+/* pages/home/home.wxss */
+.home-panel {
+    /* background-color: var(--dark-bkgd-color); */
+}
+
+.desc-view {
+    background-color: var(--light-bkgd-color);
+    text-align: center;
+    margin: 20vh 10vw;
+    padding: 5vh 0;
+    border-radius: 8px;
+    border: 1px solid var(--primary-color);
+    font-size: 10pt;
+}

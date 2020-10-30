@@ -1,0 +1,22 @@
+<view class="container">
+  <mp-form id="form">
+    <mp-cells>
+      <mp-cell>
+        <mp-uploader
+          bindfail=""
+          bindsuccess=""
+          select="{{selectFile}}"
+          upload="{{uploadFile}}"
+          files="{{files}}"
+          max-count="1"
+          title="上传作品"
+          tips="图片格式必须为jpg，小于100MB"
+        />
+      </mp-cell>
+    </mp-cells>
+    <view class="weui-btn-area">
+        <button class="weui-btn" type="primary" loading="{{subLoading}}" bindtap="onClickSubmit">确定</button>
+    </view>
+  </mp-form>
+</view>
+<mp-toptips msg="{{message.text}}" type="{{message.type}}" show="{{message.text}}"/>

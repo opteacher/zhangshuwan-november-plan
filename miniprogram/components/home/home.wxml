@@ -1,0 +1,17 @@
+<view class="home-panel">
+  <view class="desc-view">
+    <view class="icon-box">
+      <mp-icon icon="time"/>
+      <text>活动开始时间：2020-03-20 09:37:19</text>
+    </view>
+    <view class="icon-box">
+      <mp-icon icon="time"/>
+      <text>活动结束时间：2020-03-20 09:37:19</text>
+    </view>
+    <view class="icon-box">
+      <mp-icon icon="info"/>
+      <text>活动规则：每个微信号可以投票一次，每次必须选择7个选手</text>
+    </view>
+    <text>截止至4月1日，您可在上币公众号上通过网络投票，为上币仙女们的神仙作品投票。还等什么，快来为一众上币仙女攒一波人气！</text>
+  </view>
+</view>

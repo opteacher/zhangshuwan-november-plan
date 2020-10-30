@@ -1,0 +1,14 @@
+<view class="h-100">
+  <mp-tabs
+    tabs="{{tabList}}" 
+    activeTab="{{0}}" 
+    swiperClass="weui-tabs-swiper"
+    activeClass="tab-bar-title__selected"
+  >
+    <view class="tab-content" slot="tab-content-0"><articles/></view>
+    <view class="tab-content" slot="tab-content-1">
+      <text>投票纪录</text>
+    </view>
+    <view class="tab-content" slot="tab-content-2"><manage/></view>
+  </mp-tabs>
+</view>

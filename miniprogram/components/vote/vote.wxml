@@ -1,0 +1,30 @@
+<view class="container">
+  <view class="search-bar">
+    <mp-searchbar bindselectresult="selectResult" search="{{search}}"/>
+  </view>
+  <view class="display-area">
+    <scroll-view
+      class="articles-view"
+      scroll-y="true"
+    >
+      <view class="flex-wrp">
+        <view class="flex-item" wx:for="{{[articlesOdd, articlesEven]}}" wx:for-item="articles" wx:key="unique">
+          <view class="article-item" wx:for="{{articles}}" wx:key="unique">
+            <view class="article-pic">
+              <image style="width: 100%;" src="{{item.picSrc}}" mode="widthFix"/>
+            </view>
+            <view class="article-title">
+              <text>{{item.dept}} - {{item.author}}</text>
+            </view>
+            <view class="article-result">
+              <text>{{item.vote}} 票</text>
+            </view>
+            <view class="article-vote">
+              <button class="weui-btn" type="primary" size="mini" bindtap="submitForm">选择</button>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

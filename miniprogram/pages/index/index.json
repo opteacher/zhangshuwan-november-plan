@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "mp-tabbar": "/miniprogram_npm/weui-miniprogram/tabbar/tabbar",
+    "home": "../../components/home/home",
+    "join": "../../components/join/join",
+    "rank": "../../components/rank/rank",
+    "vote": "../../components/vote/vote"
+  }
+}
