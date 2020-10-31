@@ -1,0 +1,20 @@
+@import "../../app.wxss";
+
+.search-player {
+  position: fixed;
+  top: 36px;
+  left: 0;
+  right: 0;
+}
+
+.players-view {
+  height: 75%;
+}
+
+.upload-players-btn {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2vh 2vw;
+}

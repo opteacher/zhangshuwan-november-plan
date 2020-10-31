@@ -1,6 +1,7 @@
 Component({
   data: {
     depts: [],
+    _id: "",
     author: "",
     deptIdx: 0,
     subLoading: false,
@@ -22,12 +23,15 @@ Component({
     }
   },
   methods: {
+    onInputID(e) {
+      this.setData({_id: e.detail.value})
+    },
     onInputAuthor(e) {
       this.setData({author: e.detail.value})
     },
     onClickNext() {
       this.setData({subLoading: true})
-      if (this.data.author === "1") {
+      if (this.data._id === "1") {
         // 跳转到管理员页面
         wx.navigateTo({
           url: "../../pages/admin/admin"

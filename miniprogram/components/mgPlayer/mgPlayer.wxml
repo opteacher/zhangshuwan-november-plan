@@ -1,0 +1,12 @@
+<view class="search-player">
+  <mp-searchbar search="{{search}}"/>
+</view>
+<scroll-view class="players-view" scroll-y="true">
+</scroll-view>
+<view class="upload-players-btn">
+  <button class="weui-btn w-100" type="primary" bindtap="onClickUpload">批量上传选手</button>
+  <label class="weui-agree" for="weuiAgree">
+      <view class="weui-agree__text">文档格式请咨询开发人员</view>
+  </label>
+</view>
+<mp-toptips msg="{{message.text}}" type="{{message.type}}" show="{{message.text}}"/>

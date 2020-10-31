@@ -1,12 +1,8 @@
 Page({
   data: {
-    tabList: [{
-      title: "作品列表"
-    }, {
-      title: "投票纪录"
-    }, {
-      title: "部门管理"
-    }]
+    tabList: [
+      {title: "作品列表"}, {title: "选手管理"}, {title: "投票纪录"}
+    ]
   },
 
   onLoad() {
