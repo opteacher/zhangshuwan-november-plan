@@ -32,8 +32,7 @@ App({
     // wx.cloud.callFunction({
     //   name: "getOpenid",
     //   complete: res => {
-    //     console.log(res.result.event.userInfo.openId)
-    //     console.log(res.result.openid)
+    //     console.log(res.result)
     //   }
     // })
   }
