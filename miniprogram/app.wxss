@@ -19,7 +19,7 @@
 
 page {
   --primary-color: rgb(7, 193, 96);
-  --dark-bkgd-color: rgb(237, 237, 237);
+  --dark-bkgd-color: rgb(230, 230, 230);
   --light-bkgd-color: #f5f5f5;
   --danger-color: #fa5151;
 }

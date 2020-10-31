@@ -1,36 +1,31 @@
-<scroll-view
-  scroll-y="true"
-  style="height: 90vh;margin: 0 1vw 0 1vw;"
->
-  <view wx:for="{{articles}}" wx:key="unique">
-    <view class="weui-form-preview">
-      <view class="weui-form-preview__bd">
-        <image style="width: 100%;" src="{{item.picSrc}}" mode="widthFix"/>
-        <view class="weui-form-preview__item">
-          <view class="weui-form-preview__label">作者</view>
-          <view class="weui-form-preview__value">{{item.author}}</view>
-        </view>
-        <view class="weui-form-preview__item">
-          <view class="weui-form-preview__label">部门</view>
-          <view class="weui-form-preview__value">{{item.dept}}</view>
-        </view>
-        <view class="weui-form-preview__item">
-          <view class="weui-form-preview__label">得票</view>
-          <view class="weui-form-preview__value">{{item.vote}}</view>
-        </view>
+<scroll-view scroll-y="true" style="height: 90vh;margin: 0 1vw 0 1vw;">
+  <view class="weui-form-preview" style="margin-top: 2vh" wx:for="{{articles}}" wx:key="unique">
+    <view class="weui-form-preview__bd">
+      <image style="width: 100%;" src="{{item.picSrc}}" mode="widthFix"/>
+      <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">作者</view>
+        <view class="weui-form-preview__value">{{item.author}}</view>
       </view>
-      <view class="weui-form-preview__ft">
-        <navigator
-          class="weui-form-preview__btn weui-form-preview__btn_default"
-          hover-class="weui-form-preview__btn_active"
-        >调整票数</navigator>
-        <navigator
-          class="weui-form-preview__btn"
-          hover-class="weui-form-preview__btn_active"
-          style="color: var(--danger-color)"
-        >删除</navigator>
+      <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">部门</view>
+        <view class="weui-form-preview__value">{{item.dept}}</view>
+      </view>
+      <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">得票</view>
+        <view class="weui-form-preview__value">{{item.vote}}</view>
       </view>
     </view>
-    <br/>
+    <view class="weui-form-preview__ft">
+      <navigator
+        class="weui-form-preview__btn weui-form-preview__btn_default"
+        hover-class="weui-form-preview__btn_active"
+      >调整票数</navigator>
+      <navigator
+        class="weui-form-preview__btn"
+        hover-class="weui-form-preview__btn_active"
+        style="color: var(--danger-color)"
+      >删除</navigator>
+    </view>
   </view>
 </scroll-view>
+<mp-toptips msg="{{message.text}}" type="{{message.type}}" show="{{message.text}}"/>

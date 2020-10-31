@@ -3,10 +3,7 @@
     <mp-searchbar bindselectresult="selectResult" search="{{search}}"/>
   </view>
   <view class="display-area">
-    <scroll-view
-      class="articles-view"
-      scroll-y="true"
-    >
+    <scroll-view class="articles-view" scroll-y="true">
       <view class="flex-wrp">
         <view class="flex-item" wx:for="{{[articlesOdd, articlesEven]}}" wx:for-item="articles" wx:key="unique">
           <view class="article-item" wx:for="{{articles}}" wx:key="unique">

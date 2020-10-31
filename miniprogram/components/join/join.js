@@ -1,51 +1,52 @@
+const strUtil = require("../../utils/string")
+
 Component({
   data: {
-    depts: [],
-    _id: "",
-    author: "",
-    deptIdx: 0,
+    player: {
+      _id: "",
+      name: "",
+      phone: ""
+    },
     subLoading: false,
     message: {}
   },
   lifetimes: {
     async attached() {
-      let res = await getApp().globalData.db.collection("department").get()
-      if (!res.data) {
-        this.setData({
-          message: {
-            type: "error",
-            text: res.errMsg
-          }
-        })
-      } else {
-        this.setData({depts: res.data.map(dept => dept.name)})
-      }
     }
   },
   methods: {
+    _onInputChange(bindVar, e) {
+      this.setData({[bindVar]: e.detail.value})
+    },
     onInputID(e) {
-      this.setData({_id: e.detail.value})
+      this._onInputChange("player._id", e)
     },
-    onInputAuthor(e) {
-      this.setData({author: e.detail.value})
+    onInputName(e) {
+      this._onInputChange("player.name", e)
     },
-    onClickNext() {
-      this.setData({subLoading: true})
-      if (this.data._id === "1") {
+    onInputPhone(e) {
+      this._onInputChange("player.phone", e)
+    },
+    async onClickNext() {
+      if (this.data.player._id === "1") {
         // 跳转到管理员页面
-        wx.navigateTo({
-          url: "../../pages/admin/admin"
+        wx.navigateTo({url: "../../pages/admin/admin"})
+      } else {
+        this.setData({subLoading: true})
+
+        const res = await wx.cloud.callFunction({
+          name: "verifyPlayer",
+          data: this.data.player
         })
         this.setData({subLoading: false})
-      } else {
-        setTimeout(() => {
-          this.setData({subLoading: false})
-          wx.navigateTo({url: "/pages/upload/upload"})
-        }, 1000)
+        if (res.result === 1) {
+          wx.navigateTo({url: `/pages/upload/upload?${strUtil.cvtObjToUriParams(this.data.player)}`})
+        } else {
+          this.setData({
+            message: {type: "error", text: JSON.stringify(res.result)}
+          })
+        }
       }
-    },
-    onDeptChange(e) {
-      this.setData({deptIdx: e.detail.value})
     }
   }
 })

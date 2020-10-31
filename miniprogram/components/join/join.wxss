@@ -1,3 +1,9 @@
+@import "../../app.wxss";
+
 .weui-btn-area {
   margin-top: 2vh;
+}
+
+.weui-vcode-btn_active {
+  background-color: var(--dark-bkgd-color);
 }

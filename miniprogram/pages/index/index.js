@@ -19,6 +19,11 @@ Page({
       selectedIconPath: "/images/join_act.png"
     }]
   },
+  onLoad(option) {
+    if (option && option.pgIdx) {
+      this.setData({curIndex: option.pgIdx})
+    }
+  },
   onTabChange (e) {
     this.setData({
       curIndex: e.detail.index
