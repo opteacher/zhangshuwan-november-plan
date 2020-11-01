@@ -1,14 +1,14 @@
 <scroll-view scroll-y="true" style="height: 90vh;margin: 0 1vw 0 1vw;">
   <view class="weui-form-preview" style="margin-top: 2vh" wx:for="{{articles}}" wx:key="unique">
     <view class="weui-form-preview__bd">
-      <image style="width: 100%;" src="{{item.picSrc}}" mode="widthFix"/>
+      <image style="width: 100%;" src="{{item.picURL}}" mode="widthFix"/>
       <view class="weui-form-preview__item">
         <view class="weui-form-preview__label">作者</view>
         <view class="weui-form-preview__value">{{item.author}}</view>
       </view>
       <view class="weui-form-preview__item">
-        <view class="weui-form-preview__label">部门</view>
-        <view class="weui-form-preview__value">{{item.dept}}</view>
+        <view class="weui-form-preview__label">房号</view>
+        <view class="weui-form-preview__value">{{item.room}}</view>
       </view>
       <view class="weui-form-preview__item">
         <view class="weui-form-preview__label">得票</view>
@@ -16,16 +16,28 @@
       </view>
     </view>
     <view class="weui-form-preview__ft">
-      <navigator
+      <view
         class="weui-form-preview__btn weui-form-preview__btn_default"
         hover-class="weui-form-preview__btn_active"
-      >调整票数</navigator>
-      <navigator
+        data-target="{{item}}"
+        bindtap="onUpdArticleVoteBtnClick"
+      >调整票数</view>
+      <view
         class="weui-form-preview__btn"
         hover-class="weui-form-preview__btn_active"
         style="color: var(--danger-color)"
-      >删除</navigator>
+        data-target="{{item._id}}"
+        bindtap="onDelArticleBtnClick"
+      >删除</view>
     </view>
   </view>
 </scroll-view>
+<mp-dialog title="警告" show="{{toDelArticle !== ''}}" bindbuttontap="onDelArticleConfirm" buttons="{{buttons}}">
+  <view>确定删除该作品吗？</view>
+</mp-dialog>
 <mp-toptips msg="{{message.text}}" type="{{message.type}}" show="{{message.text}}"/>
+<mp-dialog show="{{toUpdArticleVote}}" bindbuttontap="onUpdArticleVoteConfirm" buttons="{{buttons}}">
+  <mp-cell prop="vote" title="票数" ext-class="">
+    <input bindinput="onInputVote" data-field="vote" class="weui-input" placeholder="当前票数：{{toUpdArticleVote.vote}}"/>
+  </mp-cell>
+</mp-dialog>

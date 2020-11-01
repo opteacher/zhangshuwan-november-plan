@@ -5,7 +5,6 @@ Page({
     player: {},
     files: [],
     picture: "",
-    picID: "",
     subLoading: false,
     subDisable: false,
     message: {}
@@ -48,33 +47,22 @@ Page({
       }
       const fileID = res.fileID
 
-      // 图片保存到数据库，并附加引用次数和时间戳，如果超过一定时间图片都未被引用，系统将清除图片
-      res = await glb.db.collection("picture").add({
-        data: {fileid: fileID, ref: 0, timestamp: Date.now()}
+      this.setData({
+        picture: fileID,
+        message: {type: "success", text: "上传图片成功！"},
+        subLoading: false
       })
-      if (!res._id) {
-        // 如果图片持久化失败，删除文件系统中的记录
-        await glb.wxp.cloud.deleteFile([fileID])
-        throw new Error("图片持久化失败！未收到图片记录ID")
-      } else {
-        this.setData({
-          picID: res._id,
-          picture: fileID,
-          message: {type: "success", text: "上传图片成功！"},
-          subLoading: false
-        })
-        return Promise.resolve({urls: [fileID]})
-      }
+      return Promise.resolve({urls: [fileID]})
     } catch(e) {
       this.setData({
-        message: {type: "error", text: `上传文件失败！${JSON.stringify(e)}`},
+        message: {type: "error", text: `上传文件失败！${e.message || JSON.stringify(e)}`},
         subLoading: false
       })
       return Promise.reject(e)
     }
   },
   async onClickSubmit() {
-    if (!this.data.picID || !this.data.picture) {
+    if (!this.data.picture) {
       this.setData({
         message: {type: "error", text: "请选择图片上传后再参赛！"}
       })
@@ -82,7 +70,8 @@ Page({
     }
     this.setData({subLoading: true})
 
-    let picSrc = ""
+    let picURL = ""
+    let picExpired = 0
     try {
       // 获取图片临时URL
       let res = await wx.cloud.getTempFileURL({
@@ -95,10 +84,12 @@ Page({
       if (picInf.status !== 0) {
         throw new Error(`获取图片URL失败！${picInf.errMsg}`)
       }
-      picSrc = picInf.tempFileURL
+      picURL = picInf.tempFileURL
+      // 过期时间：2个小时
+      picExpired = Date.now() + 2*60*60*1000
     } catch (e) {
       this.setData({
-        message: {type: "error", text: `获取图片URL失败！${JSON.stringify(e)}`},
+        message: {type: "error", text: `获取图片URL失败！${e.message || JSON.stringify(e)}`},
         subLoading: false
       })
       return Promise.reject(e)
@@ -110,24 +101,19 @@ Page({
         author: this.data.player.name,
         room: this.data.player._id,
         vote: 0,
-        picSrc
+        picID: this.data.picture,
+        picURL,
+        picExpired
       }
-      const db = getApp().globalData.db
+      const db = wx.cloud.database()
       const _ = db.command
       let res = await db.collection("article").add({data: article})
       if (!res._id) {
         throw new Error(`保存作品失败！${res.errMsg}`)
       }
-      // 修改图片的引用次数
-      res = await db.collection("picture").doc(this.data.picID).update({
-        data: {ref: _.inc(1)}
-      })
-      if (res.stats.updated !== 1) {
-        throw new Error(`修改图片引用数错误！${res.errMsg}`)
-      }
     } catch (e) {
       this.setData({
-        message: {type: "error", text: `保存作品失败！${JSON.stringify(e)}`},
+        message: {type: "error", text: `保存作品失败！${e.message || JSON.stringify(e)}`},
         subLoading: false
       })
       return Promise.reject(e)
@@ -139,7 +125,10 @@ Page({
       subDisable: true
     })
     setTimeout(() => {
-      wx.navigateTo({url: "/pages/index/index?pgIdx=1"})
+      const idxPage = getCurrentPages().find(page => page.route === "pages/index/index")
+      wx.navigateBack()
+      // 跳转到投票页面
+      idxPage.setData({curIndex: 1}) 
     }, 2000)
     return Promise.resolve()
   }

@@ -1,6 +1,8 @@
 {
   "component": true,
   "usingComponents": {
-    "mp-searchbar": "/miniprogram_npm/weui-miniprogram/searchbar/searchbar"
+    "mp-searchbar": "/miniprogram_npm/weui-miniprogram/searchbar/searchbar",
+    "mp-toptips": "/miniprogram_npm/weui-miniprogram/toptips/toptips",
+    "mp-dialog": "/miniprogram_npm/weui-miniprogram/dialog/dialog"
   }
 }

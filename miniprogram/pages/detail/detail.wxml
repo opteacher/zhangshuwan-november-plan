@@ -1,0 +1,25 @@
+<view class="weui-form-preview">
+  <view class="weui-form-preview__bd">
+    <image class="w-100" src="{{article.picURL}}" mode="widthFix" bindtap="onPicLnkClick" data-src="{{article.picURL}}"/>
+    <view class="weui-form-preview__item">
+      <view class="weui-form-preview__label">作者</view>
+      <view class="weui-form-preview__value">{{article.author}}</view>
+    </view>
+    <view class="weui-form-preview__item">
+      <view class="weui-form-preview__label">房号</view>
+      <view class="weui-form-preview__value">{{article.room}}</view>
+    </view>
+    <view class="weui-form-preview__item">
+      <view class="weui-form-preview__label">得票</view>
+      <view class="weui-form-preview__value">{{article.vote}}</view>
+    </view>
+  </view>
+  <view class="weui-form-preview__ft">
+    <view
+      class="weui-form-preview__btn weui-form-preview__btn_default"
+      hover-class="weui-form-preview__btn_active"
+      bindtap="onVoteBtnClick"
+    >投票</view>
+  </view>
+</view>
+<mp-toptips msg="{{message.text}}" type="{{message.type}}" show="{{message.text}}"/>

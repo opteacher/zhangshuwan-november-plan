@@ -1,23 +1,19 @@
-<view class="container">
-  <scroll-view
-    class="rank-view"
-    scroll-y="true"
-  >
-    <mp-cells>
-      <mp-cell link hover  wx:for="{{list}}" wx:key="unique">
-        <view slot="title" style="position: relative;margin-right: 10px;">
-            <image src="{{item.picSrc}}" style="width: 50px; height: 50px; display: block"/>
-            <image wx:if="{{index === 0}}" class="rank-badge" src="/images/crown_gold.png"/>
-            <image wx:elif="{{index === 1}}" class="rank-badge" src="/images/crown_sliver.png"/>
-            <image wx:elif="{{index === 2}}" class="rank-badge" src="/images/crown_bronze.png"/>
-        </view>
-        <view>{{item.author}}</view>
-        <view style="font-size: 13px;color: #888888;">{{item.dept}}</view>
-        <view slot="footer">
-          <mp-icon type="field" icon="like" color="var(--danger-color)" size="{{25}}"/>
-          <text style="color: var(--danger-color)">{{item.vote}}</text>
-        </view>
-      </mp-cell>
-    </mp-cells>
-  </scroll-view>
-</view>
+<scroll-view class="rank-view" scroll-y="true">
+  <mp-cells>
+    <mp-cell link hover  wx:for="{{rankList}}" wx:key="unique" data-target="{{item._id}}" bindtap="onToDetialBtnClick">
+      <view slot="title" style="position: relative;margin-right: 10px;">
+          <image src="{{item.picURL}}" style="width: 50px; height: 50px; display: block"/>
+          <image wx:if="{{index === 0}}" class="rank-badge" src="/images/crown_gold.png"/>
+          <image wx:elif="{{index === 1}}" class="rank-badge" src="/images/crown_sliver.png"/>
+          <image wx:elif="{{index === 2}}" class="rank-badge" src="/images/crown_bronze.png"/>
+      </view>
+      <view>{{item.author}}</view>
+      <view style="font-size: 13px;color: #888888;">房号 {{item.room}}</view>
+      <view slot="footer">
+        <mp-icon type="field" icon="like" color="var(--danger-color)" size="{{25}}"/>
+        <text style="color: var(--danger-color)">{{item.vote}}</text>
+      </view>
+    </mp-cell>
+  </mp-cells>
+</scroll-view>
+<mp-toptips msg="{{message.text}}" type="{{message.type}}" show="{{message.text}}"/>

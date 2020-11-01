@@ -17,6 +17,10 @@
   float: right;
 }
 
+.link_active {
+  background-color: var(--dark-bkgd-color);
+}
+
 page {
   --primary-color: rgb(7, 193, 96);
   --dark-bkgd-color: rgb(230, 230, 230);

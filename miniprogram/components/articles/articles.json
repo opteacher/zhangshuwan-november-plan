@@ -1,3 +1,9 @@
 {
-  "component": true
+  "component": true,
+  "usingComponents": {
+    "mp-dialog": "/miniprogram_npm/weui-miniprogram/dialog/dialog",
+    "mp-toptips": "/miniprogram_npm/weui-miniprogram/toptips/toptips",
+    "mp-cells": "/miniprogram_npm/weui-miniprogram/cells/cells",
+    "mp-cell": "/miniprogram_npm/weui-miniprogram/cell/cell"
+  }
 }

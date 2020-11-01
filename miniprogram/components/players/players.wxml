@@ -43,13 +43,13 @@
 <view class="upload-players-btn">
   <button class="weui-btn w-100" type="primary" bindtap="onClickUpload">批量上传选手</button>
   <label class="weui-agree" for="weuiAgree">
-      <view class="weui-agree__text">文档格式请咨询开发人员</view>
+    <view class="weui-agree__text">文档格式请咨询开发人员</view>
   </label>
 </view>
 <mp-toptips msg="{{message.text}}" type="{{message.type}}" show="{{message.text}}"/>
 <mp-dialog title="警告" show="{{toDelPlayerId !== ''}}" bindbuttontap="onDelPlayerConfirm" buttons="{{buttons}}">
-    <view>确定删除该选手吗？</view>
+  <view>确定删除该选手吗？</view>
 </mp-dialog>
 <mp-dialog title="警告" show="{{toBanPlayerId !== ''}}" bindbuttontap="onBanPlayerConfirm" buttons="{{buttons}}">
-    <view>确定禁赛该选手吗？</view>
+  <view>确定禁赛该选手吗？</view>
 </mp-dialog>

@@ -15,7 +15,7 @@ Component({
   },
   methods: {
     onBanPlayerBtnClick(e) {
-      this.setData({toBanPlayerId: e.target.dataset.target})
+      this.setData({toBanPlayerId: e.currentTarget.dataset.target})
     },
     async onBanPlayerConfirm(e) {
       if (e.detail.index === 1) {
@@ -39,7 +39,7 @@ Component({
       this.updPlayers().catch(e => {})
     },
     onDelPlayerBtnClick(e) {
-      this.setData({toDelPlayerId: e.target.dataset.target})
+      this.setData({toDelPlayerId: e.currentTarget.dataset.target})
     },
     async onDelPlayerConfirm(e) {
       if (e.detail.index === 1) {
@@ -49,7 +49,6 @@ Component({
             data: {_id: this.data.toDelPlayerId}
           })
         } catch (e) {
-          console.log(e)
           this.setData({
             message: {type: "error", text: `删除选手失败！${e}`}
           })
@@ -63,7 +62,7 @@ Component({
       this.updPlayers().catch(e => {})
     },
     async updPlayers() {
-      let res = await getApp().globalData.db.collection("player").get()
+      let res = await wx.cloud.database().collection("player").get()
       if (!res.data) {
         this.setData({
           message: {type: "error", text: `查询选手失败！${res.errMsg}`}

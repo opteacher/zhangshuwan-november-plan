@@ -1,9 +1,9 @@
 <view>
   <view class="container">
-    <home class="wh-100" wx:if="{{curIndex === 0}}"/>
-    <vote class="wh-100" wx:if="{{curIndex === 1}}"/>
-    <rank class="wh-100" wx:if="{{curIndex === 2}}"/>
-    <join class="wh-100" wx:if="{{curIndex === 3}}"/>
+    <home id="compHome" class="wh-100" wx:if="{{curIndex === 0}}"/>
+    <vote id="compVote" class="wh-100" wx:if="{{curIndex === 1}}"/>
+    <rank id="compRank" class="wh-100" wx:if="{{curIndex === 2}}"/>
+    <join id="compJoin" class="wh-100" wx:if="{{curIndex === 3}}"/>
   </view>
   <mp-tabbar class="bottom-nav" list="{{list}}" current="{{curIndex}}" bindchange="onTabChange"/>
 </view>
