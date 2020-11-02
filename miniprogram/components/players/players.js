@@ -45,7 +45,7 @@ Component({
       if (e.detail.index === 1) {
         try {
           await wx.cloud.callFunction({
-            name: "removePlayer",
+            name: "delPlayer",
             data: {_id: this.data.toDelPlayerId}
           })
         } catch (e) {
@@ -119,7 +119,7 @@ Component({
           cloudPath: fileName,
           filePath: filePath
         })
-        if (res.statusCode !== 200 || !res.fileID) {
+        if (!res.fileID) {
           this.setData({
             message: {type: "error", text: `上传文件失败！${res.errMsg}`}
           })

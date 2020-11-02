@@ -1,8 +1,8 @@
 <view class="container">
   <mp-form id="form">
     <mp-cells title="基本信息" footer="系统会验证信息真实，请如实填写。已经提交过作品的用户可输入房号查询已提交的作品">
-      <mp-cell prop="player._id" title="房号" ext-class="">
-        <input bindinput="onInputID" data-field="player._id" class="weui-input" placeholder="请输入房号"/>
+      <mp-cell prop="player.room" title="房号" ext-class="">
+        <input bindinput="onInputRoom" data-field="player.room" class="weui-input" placeholder="请输入房号"/>
       </mp-cell>
       <mp-cell prop="player.name" title="姓名" ext-class="">
         <input bindinput="onInputName" data-field="player.name" class="weui-input" placeholder="请输入姓名"/>

@@ -62,7 +62,7 @@ Component({
         wx.showLoading({title: "加载中"})
         try{
           await wx.cloud.database().collection("article").doc(this.data.toUpdArticleVote._id).update({
-            data: {vote: this.data.toUpdArticleVote.vote}
+            data: {vote: Number(this.data.toUpdArticleVote.vote)}
           })
           wx.hideLoading()
           this.setData({

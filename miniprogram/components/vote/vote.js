@@ -29,10 +29,10 @@ Component({
         let articlesEven = []
         let pictureList = []
         for (let i = 0; i < articles.length; ++i) {
-          if (i % 2 === 0 && i !== 0) {
-            articlesEven.push(articles[i])
-          } else {
+          if (i % 2 === 0) {
             articlesOdd.push(articles[i])
+          } else {
+            articlesEven.push(articles[i])
           }
           pictureList.push(articles[i].picURL)
         }

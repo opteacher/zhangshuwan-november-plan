@@ -1,4 +1,4 @@
-import { promisifyAll, promisify } from "miniprogram-api-promise";
+import { promisifyAll, promisify } from "miniprogram-api-promise"
 
 const wxp = {}
 // promisify all wx's api
@@ -17,8 +17,8 @@ App({
         //   此处请填入环境 ID, 环境 ID 可打开云控制台查看
         //   如不填则使用默认环境（第一个创建的环境）
         // env: 'my-env-id',
-        env: "dev-2g7sraj390eaa0cd",
-        traceUser: true,
+        env: "test-8gz67lpof2b9185f",
+        traceUser: true
       })
     }
 

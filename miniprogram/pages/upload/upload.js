@@ -42,7 +42,7 @@ Page({
         cloudPath: tempFileName,
         filePath: tempFilePath
       })
-      if (res.statusCode !== 200 || !res.fileID) {
+      if (!res.fileID) {
         throw new Error(`上传文件失败！${res.errMsg}`)
       }
       const fileID = res.fileID
@@ -99,7 +99,7 @@ Page({
       // 组装作品结构，保存进数据库
       const article = {
         author: this.data.player.name,
-        room: this.data.player._id,
+        room: this.data.player.room,
         vote: 0,
         picID: this.data.picture,
         picURL,
