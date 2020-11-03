@@ -1,10 +1,12 @@
 Page({
   data: {
     message: {},
-    article: {}
+    article: {},
+    showVoteBtn: true
   },
   async onLoad(option) {
     wx.showLoading({title: "加载中"})
+    this.setData({showVoteBtn: option.voteBtn === "false" ? false : true})
     try {
       let res = await wx.cloud.database().collection("article").doc(option._id).get()
       if (!res.data) {

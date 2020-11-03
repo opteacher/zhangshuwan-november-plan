@@ -62,10 +62,11 @@ Component({
           } else if (res.data[0].status === "参赛") {
             msgTxt = "该用户已参赛，不可重复报名！"
           }
+          const player = res.data[0]
           
           this.setData({subLoading: false})
           if (msgTxt === "") {
-            wx.navigateTo({url: `/pages/upload/upload?${strUtil.cvtObjToUriParams(this.data.player)}`})
+            wx.navigateTo({url: `/pages/upload/upload?${strUtil.cvtObjToUriParams(player)}`})
           } else {
             throw new Error(msgTxt)
           }

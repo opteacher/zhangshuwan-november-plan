@@ -2,6 +2,7 @@
   "usingComponents": {
     "mp-tabs": "@miniprogram-component-plus/tabs",
     "articles": "../../components/articles/articles",
-    "players": "../../components/players/players"
+    "players": "../../components/players/players",
+    "records": "../../components/records/records"
   }
 }

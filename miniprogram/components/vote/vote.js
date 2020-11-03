@@ -6,7 +6,9 @@ Component({
     pictureList: [],
     toVoteArticleId: "",
     buttons: [{text: "取消"}, {text: "确定"}],
-    voteLoadingArticle: ""
+    voteLoadingArticle: "",
+    votingUser: {},
+    voteType: ""
   },
   lifetimes: {
     attached() {
@@ -48,25 +50,37 @@ Component({
       const toVoteArticleId = e.currentTarget.dataset.target
       this.setData({voteLoadingArticle: toVoteArticleId})
       try {
-        // 获取登录者的openid
-        let res = await wx.cloud.callFunction({name: "getOpenid"})
-        if (!res.result || !res.result.openid) {
-          throw new Error(`获取投票者openid失败！${res.errMsg}`)
-        }
-        const _openid = res.result.openid
-
-        // 检查是否超过三次投票
-        res = await wx.cloud.callFunction({
+        // 检查是否超过投票上限
+        let res = await wx.cloud.callFunction({
           name: "chkVoteable",
-          data: {_openid}
+          data: {
+            votingUser: e.detail.userInfo,
+            votingArticleId: toVoteArticleId
+          }
         })
-        if (!res.result) {
-          this.setData({
-            message: {type: "error", text: "对不起，你今天已经超过三次投票！请等到明天再投票"},
-            voteLoadingArticle: ""
-          })
+        if (!res.result || res.error) {
+          throw res.error || new Error("检车投票资格错误！返回值缺少result字段")
+        }
+        if (!res.result.votable) {
+          if (!res.result.type) {
+            this.setData({
+              message: {type: "error", text: "对不起，你今天已经超过投票上限！请等到明天再投票"},
+              voteLoadingArticle: ""
+            })
+          } else {
+            this.setData({
+              message: {type: "info", text: "对不起，你每日投票资格已用！你可通过右上角菜单中的转发朋友群或者发朋友圈获得投票资格"},
+              voteLoadingArticle: ""
+            })
+          }
           return false
         }
+        this.setData({
+          votingUser: Object.assign(e.detail.userInfo, {
+            openid: res.result.openid
+          }),
+          voteType: res.result.type
+        })
       } catch(e) {
         this.setData({
           message: {type: "error", text: `查询投票资质失败！${e.message || JSON.stringify(e)}`}
@@ -76,37 +90,33 @@ Component({
     },
     async onVoteConfirm(e) {
       if (e.detail.index === 1) {
-        const db = wx.cloud.database()
-        const _ = db.command
         try {
           // 更新投票数
-          let res = await db.collection("article").doc(this.data.toVoteArticleId).update({
+          const db = wx.cloud.database()
+          const _ = db.command
+          await wx.cloud.database().collection("article").doc(this.data.toVoteArticleId).update({
             data: {vote: _.inc(1)}
           })
-          if (res.stats.updated !== 1) {
-            throw new Error(`更新投票数错误！${res.errMsg}`)
-          }
 
-          // 插入投票记录
-          res = await db.collection("vote").add({
+          // 记录投票
+          await wx.cloud.callFunction({
+            name: "logVote",
             data: {
+              _openid: this.data.votingUser.openid,
               articleId: this.data.toVoteArticleId,
-              timestamp: Date.now()
+              type: this.data.voteType,
+              available: true
             }
           })
-          if (!res._id) {
-            throw new Error(`保存投票记录失败！${res.errMsg}`)
-          }
         } catch (e) {
           this.setData({
-            message: {type: "error", text: `投票失败！${e}`},
+            message: {type: "error", text: `投票失败！${e.message || JSON.stringify(e)}`},
             toVoteArticleId: ""
           })
           return Promise.reject(e)
         }
         this.setData({
-          message: {type: "success", text: "投票成功！"},
-          toVoteArticleId: ""
+          message: {type: "success", text: "投票成功！"}
         })
       }
       this.setData({toVoteArticleId: ""})

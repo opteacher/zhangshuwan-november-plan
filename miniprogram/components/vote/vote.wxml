@@ -17,8 +17,9 @@
           </view>
           <view class="article-vote">
             <button class="weui-btn" type="primary" size="mini"
-              bindtap="onVoteBtnClick"
               data-target="{{item._id}}"
+              open-type="getUserInfo"
+              bindgetuserinfo="onVoteBtnClick"
               loading="{{voteLoadingArticle === item._id}}"
             >选择</button>
           </view>

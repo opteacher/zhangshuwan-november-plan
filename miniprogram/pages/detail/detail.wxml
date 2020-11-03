@@ -14,7 +14,7 @@
       <view class="weui-form-preview__value">{{article.vote}}</view>
     </view>
   </view>
-  <view class="weui-form-preview__ft">
+  <view class="weui-form-preview__ft" wx:if="{{showVoteBtn}}">
     <view
       class="weui-form-preview__btn weui-form-preview__btn_default"
       hover-class="weui-form-preview__btn_active"

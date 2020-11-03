@@ -29,6 +29,15 @@ Page({
       curIndex: e.detail.index
     })
   },
+  onShareAppMessage: () => this.logShareAction("repost"),
+  onShareTimeline: () => this.logShareAction("moments"),
+  logShareAction() {
+    // 记录转发和发朋友圈记录
+    return {
+      title: "我爱我家——定格韶山温馨家园 城发承载幸福启航",
+      query: "pages/index/index"
+    }
+  },
   options: {
     addGlobalClass: true
   }

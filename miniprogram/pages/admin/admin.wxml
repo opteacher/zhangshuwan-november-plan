@@ -7,8 +7,6 @@
   >
     <view class="tab-content" slot="tab-content-0"><articles/></view>
     <view class="tab-content" slot="tab-content-1"><players/></view>
-    <view class="tab-content" slot="tab-content-2">
-      <text>投票纪录</text>
-    </view>
+    <view class="tab-content" slot="tab-content-2"><records/></view>
   </mp-tabs>
 </view>

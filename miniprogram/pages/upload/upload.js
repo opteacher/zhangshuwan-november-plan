@@ -111,6 +111,12 @@ Page({
       if (!res._id) {
         throw new Error(`保存作品失败！${res.errMsg}`)
       }
+
+      // 更新选手状态为参赛中
+      await wx.cloud.callFunction({
+        name: "joinGame",
+        data: {_id: this.data.player._id}
+      })
     } catch (e) {
       this.setData({
         message: {type: "error", text: `保存作品失败！${e.message || JSON.stringify(e)}`},

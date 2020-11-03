@@ -1,0 +1,19 @@
+<scroll-view class="rank-view" scroll-y="true">
+  <mp-cells
+    wx:for="{{records}}"
+    wx:key="unique"
+    footer="{{item.datetime}}"
+  >
+    <mp-cell link hover
+      value="{{item.voteUser.nickName}}"
+      footer="{{item.articleAuthor.name}}-{{item.articleAuthor.room}} 室"
+      bindtap="onToDetailBtnClick"
+      data-target="{{item.articleId}}"
+    >
+      <image slot="icon" src="{{item.voteUser.avatarUrl}}"
+        style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"
+      />
+    </mp-cell>
+  </mp-cells>
+</scroll-view>
+<mp-toptips msg="{{message.text}}" type="{{message.type}}" show="{{message.text}}"/>

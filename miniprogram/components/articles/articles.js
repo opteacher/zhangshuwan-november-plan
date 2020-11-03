@@ -16,7 +16,6 @@ Component({
       wx.showLoading({title: "加载中"})
       try {
         let res = await wx.cloud.database().collection("article").get()
-        console.log(res.data)
         this.setData({articles: res.data || []})
         wx.hideLoading()
       } catch (e) {

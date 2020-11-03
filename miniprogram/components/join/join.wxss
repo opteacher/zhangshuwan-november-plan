@@ -1,5 +1,5 @@
 @import "../../app.wxss";
 
 .weui-btn-area {
-  margin-top: 2vh;
+  margin-top: 5vh;
 }

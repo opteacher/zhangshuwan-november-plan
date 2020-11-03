@@ -1,14 +1,23 @@
+@import "../../app.wxss"
+
 /* pages/home/home.wxss */
 .home-panel {
-    /* background-color: var(--dark-bkgd-color); */
+  /* background-color: var(--dark-bkgd-color); */
 }
 
 .desc-view {
-    background-color: var(--light-bkgd-color);
-    text-align: center;
-    margin: 20vh 10vw;
-    padding: 5vh 0;
-    border-radius: 8px;
-    border: 1px solid var(--primary-color);
-    font-size: 10pt;
+  background-color: var(--light-bkgd-color);
+  text-align: left;
+  margin: 15vh 10vw;
+  padding: 5vh 3vw;
+  border-radius: 8px;
+  border: 1px solid var(--primary-color);
+  font-size: 10pt;
+}
+
+.weui-btn-area {
+  position: fixed;
+  bottom: 70px;
+  left: 0;
+  right: 0;
 }
