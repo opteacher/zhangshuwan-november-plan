@@ -95,6 +95,7 @@ Page({
       return Promise.reject(e)
     }
     
+    let articleId = ""
     try {
       // 组装作品结构，保存进数据库
       const article = {
@@ -111,6 +112,7 @@ Page({
       if (!res._id) {
         throw new Error(`保存作品失败！${res.errMsg}`)
       }
+      articleId = res._id
 
       // 更新选手状态为参赛中
       await wx.cloud.callFunction({
@@ -130,12 +132,13 @@ Page({
       message: {type: "success", text: "作品提交成功！快来为自己的作品投票吧！"},
       subDisable: true
     })
-    setTimeout(() => {
-      const idxPage = getCurrentPages().find(page => page.route === "pages/index/index")
-      wx.navigateBack()
-      // 跳转到投票页面
-      idxPage.setData({curIndex: 1}) 
-    }, 2000)
+    await new Promise(resolve => setTimeout(resolve, 2000))
+    const idxPage = getCurrentPages().find(page => page.route === "pages/index/index")
+    wx.navigateBack()
+    // 跳转到投票页面
+    idxPage.setData({curIndex: 1})
+    await new Promise(resolve => setTimeout(resolve, 500))
+    wx.navigateTo({url: `../../pages/detail/detail?_id=${articleId}`})
     return Promise.resolve()
   }
 })

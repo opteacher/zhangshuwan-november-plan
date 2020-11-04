@@ -129,10 +129,7 @@ Component({
       return this.updArticles()
     },
     onPicLnkClick(e) {
-      wx.previewImage({
-        current: e.currentTarget.dataset.src,
-        urls: this.data.pictureList
-      })
+      wx.navigateTo({url: `../../pages/detail/detail?_id=${e.currentTarget.dataset.target}`})
     }
   }
 })

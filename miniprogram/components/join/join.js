@@ -8,7 +8,19 @@ Component({
       phone: ""
     },
     subLoading: false,
-    message: {}
+    message: {},
+    communities: ["百合苑", "樟树湾"],
+    communityIdx: 0,
+    buildings: [],
+    buildingIdx: 0
+  },
+  lifetimes: {
+    attached() {
+      this.setData({
+        buildings: Array.from({length: 22}, (_, i)=> i + 1),
+        buildingIdx: 0
+      })
+    }
   },
   methods: {
     _onInputChange(bindVar, e) {
@@ -23,13 +35,28 @@ Component({
     onInputPhone(e) {
       this._onInputChange("player.phone", e)
     },
+    onCommunityChange(e) {
+      this.setData({
+        communityIdx: e.detail.value,
+        buildings: Array.from({
+          length: e.detail.value == 0 ? 22 : 17
+        }, (_, i)=> i + 1),
+        buildingIdx: 0
+      })
+    },
+    onBuildingChange(e) {
+      this.setData({buildingIdx: e.detail.value})
+    },
     async onClickNext() {
-      const room = this.data.player.room
-      if (room === "1") {
+      if (this.data.player.room === "1") {
         // 跳转到管理员页面
         wx.navigateTo({url: "../../pages/admin/admin"})
       } else {
         this.setData({subLoading: true})
+        // 拼接房号
+        let room = this.data.communities[this.data.communityIdx]
+        room += `${this.data.buildings[this.data.buildingIdx]}栋`
+        room += `${this.data.player.room}号`
         const db = wx.cloud.database()
         try {
           // 检查该用户是否已提交过作品，如果提交过，则跳转到作品详情页面

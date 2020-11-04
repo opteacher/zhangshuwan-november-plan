@@ -3,3 +3,7 @@
 .weui-btn-area {
   margin-top: 5vh;
 }
+
+.weui-select {
+  padding-left: 0;
+}

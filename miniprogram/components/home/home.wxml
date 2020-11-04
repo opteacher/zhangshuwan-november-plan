@@ -1,4 +1,4 @@
-<view class="desc-view">
+<view class="desc-view" style="display: none">
   <view class="icon-box">
     <mp-icon icon="time" color="var(--primary-color)" extClass="mr-10"/>
     <text>活动开始时间：2020-11-05 12:00</text>
@@ -21,6 +21,7 @@
     <text>主办单位：韶山市城发集团房地产开发有限公司</text>
   </view>
 </view>
+<image src="/images/home_background.jpeg" style="width: 100%; height: 100%" bindtap="onNaviToJoinBtnClick"/>
 <view class="weui-btn-area" style="display: none">
   <button class="weui-btn w-100" type="primary" bindtap="onShareBtnClick" open-type="share">分享</button>
 </view>

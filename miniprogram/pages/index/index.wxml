@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container" style="margin-bottom: 60px">
   <home id="compHome" class="wh-100" wx:if="{{curIndex === 0}}"/>
   <vote id="compVote" class="wh-100" wx:if="{{curIndex === 1}}"/>
   <rank id="compRank" class="wh-100" wx:if="{{curIndex === 2}}"/>

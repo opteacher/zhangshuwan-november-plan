@@ -7,10 +7,15 @@
       <view class="flex-item" wx:for="{{[articlesOdd, articlesEven]}}" wx:for-item="articles" wx:key="unique">
         <view class="article-item" wx:for="{{articles}}" wx:key="unique">
           <view class="article-pic">
-            <image style="width: 100%;" src="{{item.picURL}}" mode="widthFix" data-src="{{item.picURL}}" bindtap="onPicLnkClick"/>
+            <image style="width: 100%;" src="{{item.picURL}}" mode="widthFix" data-target="{{item._id}}" bindtap="onPicLnkClick"/>
           </view>
           <view class="article-title">
-            <text>房号 {{item.room}} - {{item.author}}</text>
+            <view>
+              <text>{{item.room}}</text>
+            </view>
+            <view>
+              <text>{{item.author}}</text>
+            </view>
           </view>
           <view class="article-result">
             <text>{{item.vote}} 票</text>

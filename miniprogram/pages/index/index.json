@@ -4,6 +4,7 @@
     "home": "../../components/home/home",
     "join": "../../components/join/join",
     "rank": "../../components/rank/rank",
-    "vote": "../../components/vote/vote"
+    "vote": "../../components/vote/vote",
+    "mp-toptips": "/miniprogram_npm/weui-miniprogram/toptips/toptips"
   }
 }

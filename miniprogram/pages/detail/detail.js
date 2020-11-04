@@ -1,4 +1,5 @@
 const {validVote, doVote} = require("../../components/vote/vote")
+const {enbVoteQaul} = require("../index/index")
 
 Page({
   data: {
@@ -69,19 +70,12 @@ Page({
   },
   async logShareAction(voteType) {
     // 记录转发和发朋友圈记录
-    await wx.cloud.callFunction({
-      name: "enbVoteQaul",
-      data: {voteType}
-    }).catch(err => {
-      this.setData({
-        message: {type: "error", text: `增加用户投票资格失败！${err.message || JSON.stringify(err)}`}
-      })
-    })
+    const res = await enbVoteQaul(voteType)
+    this.setData(res)
     return {
       title: "“我爱我家”作品评选——请为我的作品投上你关键一票",
-      path: `pages/detail/detail?_id=${this.data.article._id}`,
-      query: `pages/detail/detail?_id=${this.data.article._id}`
+      query: `pages/detail/detail?_id=${this.data.article._id}`,
+      path: `pages/index/index?_id=${this.data.article._id}`
     }
   },
 })
-  
