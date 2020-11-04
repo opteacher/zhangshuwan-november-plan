@@ -1,14 +1,18 @@
+const {validVote, doVote} = require("../../components/vote/vote")
+
 Page({
   data: {
     message: {},
     article: {},
-    showVoteBtn: true
+    showVoteBtn: true,
+    showVoteDlg: false,
+    buttons: [{text: "取消"}, {text: "确定"}],
+    votingUser: {},
+    voteType: ""
   },
-  async onLoad(option) {
-    wx.showLoading({title: "加载中"})
-    this.setData({showVoteBtn: option.voteBtn === "false" ? false : true})
+  async reload(articleId) {
     try {
-      let res = await wx.cloud.database().collection("article").doc(option._id).get()
+      let res = await wx.cloud.database().collection("article").doc(articleId).get()
       if (!res.data) {
         throw new Error(`查询作品失败！返回值缺少data字段。${res.errMsg}`)
       }
@@ -18,6 +22,11 @@ Page({
         message: {type: "error", text: e.message || JSON.stringify(e)}
       })
     }
+  },
+  async onLoad(option) {
+    wx.showLoading({title: "加载中"})
+    this.setData({showVoteBtn: option.voteBtn === "false" ? false : true})
+    await this.reload(option._id)
     wx.hideLoading()
   },
   onPicLnkClick(e) {
@@ -26,11 +35,53 @@ Page({
       urls: [e.currentTarget.dataset.src]
     })
   },
-  onVoteBtnClick(e) {
-    const idxPage = getCurrentPages().find(page => page.route === "pages/index/index")
-    console.log(idxPage)
-    const voteComp = idxPage.selectAllComponents()
-    console.log(voteComp)
-  }
+  async onVoteBtnClick(e) {
+    const res = await validVote(e.detail.userInfo)
+    if (res.message) {
+      this.setData({message: res.message})
+    }
+    if (res.valid) {
+      this.setData({
+        votingUser: Object.assign(e.detail.userInfo, {
+          openid: res.resp.openid
+        }),
+        voteType: res.resp.type
+      })
+      this.setData({showVoteDlg: true})
+    }
+  },
+  async onVoteConfirm(e) {
+    if (e.detail.index === 1) {
+      const res = await doVote(
+        this.data.article._id,
+        this.data.votingUser.openid,
+        this.data.voteType)
+      this.setData({message: res.message})
+      await this.reload(this.data.article._id)
+    }
+    this.setData({showVoteDlg: false})
+  },
+  onShareAppMessage() {
+    return this.logShareAction("repost")
+  },
+  onShareTimeline() {
+    return this.logShareAction("moments")
+  },
+  async logShareAction(voteType) {
+    // 记录转发和发朋友圈记录
+    await wx.cloud.callFunction({
+      name: "enbVoteQaul",
+      data: {voteType}
+    }).catch(err => {
+      this.setData({
+        message: {type: "error", text: `增加用户投票资格失败！${err.message || JSON.stringify(err)}`}
+      })
+    })
+    return {
+      title: "“我爱我家”作品评选——请为我的作品投上你关键一票",
+      path: `pages/detail/detail?_id=${this.data.article._id}`,
+      query: `pages/detail/detail?_id=${this.data.article._id}`
+    }
+  },
 })
   

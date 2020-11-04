@@ -8,7 +8,9 @@ const db = cloud.database()
 // 云函数入口函数
 exports.main = async () => {
   try {
-    let res = await db.collection("vote").get()
+    let res = await db.collection("vote").where({
+      timestamp: db.command.exists(true)
+    }).get()
     if (!res.data) {
       throw new Error("查询投票记录失败！返回值缺少data字段")
     }

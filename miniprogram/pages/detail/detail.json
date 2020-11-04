@@ -1,3 +1,6 @@
 {
-  
+  "usingComponents": {
+    "mp-toptips": "/miniprogram_npm/weui-miniprogram/toptips/toptips",
+    "mp-dialog": "/miniprogram_npm/weui-miniprogram/dialog/dialog"
+  }
 }

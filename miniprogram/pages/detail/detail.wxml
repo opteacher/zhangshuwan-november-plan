@@ -15,11 +15,14 @@
     </view>
   </view>
   <view class="weui-form-preview__ft" wx:if="{{showVoteBtn}}">
-    <view
+    <button
       class="weui-form-preview__btn weui-form-preview__btn_default"
-      hover-class="weui-form-preview__btn_active"
-      bindtap="onVoteBtnClick"
-    >投票</view>
+      open-type="getUserInfo"
+      bindgetuserinfo="onVoteBtnClick"
+    >投票</button>
   </view>
 </view>
+<mp-dialog title="提示" show="{{showVoteDlg}}" bindbuttontap="onVoteConfirm" buttons="{{buttons}}">
+  <view>确认投票该作品？</view>
+</mp-dialog>
 <mp-toptips msg="{{message.text}}" type="{{message.type}}" show="{{message.text}}"/>

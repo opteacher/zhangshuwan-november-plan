@@ -5,15 +5,6 @@ cloud.init({env: "test-8gz67lpof2b9185f"})
 const db = cloud.database()
 const _ = db.command
 
-function isTimestampBelongToday(timestamp) {
-  if (new Date(timestamp).toDateString() === new Date().toDateString()) {
-    return true
-  } else if (new Date(timestamp) < new Date()){
-    return false
-  }
-  return false
-}
-
 // 云函数入口函数
 exports.main = async event => {
   const wxContext = await cloud.getWXContext()
@@ -37,8 +28,7 @@ exports.main = async event => {
       voteUser: {
         nickName: event.votingUser.nickName,
         avatarUrl: event.votingUser.avatarUrl
-      },
-      articleId: event.votingArticleId
+      }
     }
     let transaction = null
     try {
@@ -63,7 +53,6 @@ exports.main = async event => {
   // 检查有可用的投票记录
   let avaType = undefined
   for (let vtRcd of res.data) {
-    console.log(vtRcd)
     if (vtRcd.available) {
       return Promise.resolve({openid, type: vtRcd.type, votable: true})
     } else if (!vtRcd.timestamp) {

@@ -1,5 +1,6 @@
 Page({
   data: {
+    message: {},
     curIndex: 0,
     list: [{
       text: "活动说明",
@@ -29,13 +30,24 @@ Page({
       curIndex: e.detail.index
     })
   },
-  onShareAppMessage: () => this.logShareAction("repost"),
-  onShareTimeline: () => this.logShareAction("moments"),
-  logShareAction() {
+  onShareAppMessage() {
+    return this.logShareAction("repost")
+  },
+  onShareTimeline() {
+    return this.logShareAction("moments")
+  },
+  async logShareAction(voteType) {
     // 记录转发和发朋友圈记录
+    await wx.cloud.callFunction({
+      name: "enbVoteQaul",
+      data: {voteType}
+    }).catch(err => {
+      this.setData({
+        message: {type: "error", text: `增加用户投票资格失败！${err.message || JSON.stringify(err)}`}
+      })
+    })
     return {
-      title: "我爱我家——定格韶山温馨家园 城发承载幸福启航",
-      query: "pages/index/index"
+      title: "我爱我家——定格韶山温馨家园 城发承载幸福启航"
     }
   },
   options: {

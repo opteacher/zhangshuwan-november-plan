@@ -42,7 +42,7 @@ Component({
               message: {type: "info", text: "该房选手已提交作品，将跳转其作品详细页……"}
             })
             this.setData({subLoading: false})
-            await new Promise(resolve => setTimeout(resolve, 2000))
+            await new Promise(resolve => setTimeout(resolve, 1000))
             const article = res.data[0]
             wx.navigateTo({url: `../../pages/detail/detail?_id=${article._id}`})
             return
