@@ -1,4 +1,20 @@
 <view class="weui-form-preview">
+  <view class="weui-form-preview__ft" wx:if="{{showVoteBtn}}">
+    <button
+      class="weui-form-preview__btn weui-form-preview__btn_primary p-0 br-0"
+      hover-class="weui-form-preview__btn_active"
+      open-type="getUserInfo"
+      bindgetuserinfo="onVoteBtnClick"
+      style="width: 50%"
+    >投票</button>
+    <button
+      class="weui-form-preview__btn weui-form-preview__btn_default p-0 br-0"
+      hover-class="weui-form-preview__btn_active"
+      bindtap="onRepostBtnClick"
+      style="width: 50%"
+      open-type="share"
+    >转发</button>
+  </view>
   <view class="weui-form-preview__bd">
     <image class="w-100" src="{{article.picURL}}" mode="widthFix" bindtap="onPicLnkClick" data-src="{{article.picURL}}"/>
     <view class="weui-form-preview__item">
@@ -6,7 +22,7 @@
       <view class="weui-form-preview__value">{{article.author}}</view>
     </view>
     <view class="weui-form-preview__item">
-      <view class="weui-form-preview__label">房号</view>
+      <view class="weui-form-preview__label">门牌号</view>
       <view class="weui-form-preview__value">{{article.room}}</view>
     </view>
     <view class="weui-form-preview__item">
@@ -14,13 +30,9 @@
       <view class="weui-form-preview__value">{{article.vote}}</view>
     </view>
   </view>
-  <view class="weui-form-preview__ft" wx:if="{{showVoteBtn}}">
-    <button
-      class="weui-form-preview__btn weui-form-preview__btn_default"
-      open-type="getUserInfo"
-      bindgetuserinfo="onVoteBtnClick"
-    >投票</button>
-  </view>
+</view>
+<view class="back-to-home" hover-class="back-to-home__active">
+  <mp-icon icon="home" src="/images/home.png" color="white" type="field" size="{{45}}" bindtap="onBackHomeBtnClick" extClass="mt-5"/>
 </view>
 <mp-dialog title="提示" show="{{showVoteDlg}}" bindbuttontap="onVoteConfirm" buttons="{{buttons}}">
   <view>确认投票该作品？</view>

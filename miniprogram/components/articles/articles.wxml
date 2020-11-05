@@ -7,7 +7,7 @@
         <view class="weui-form-preview__value">{{item.author}}</view>
       </view>
       <view class="weui-form-preview__item">
-        <view class="weui-form-preview__label">房号</view>
+        <view class="weui-form-preview__label">门牌号</view>
         <view class="weui-form-preview__value">{{item.room}}</view>
       </view>
       <view class="weui-form-preview__item">

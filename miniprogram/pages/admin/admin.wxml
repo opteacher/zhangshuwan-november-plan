@@ -6,7 +6,7 @@
     activeClass="tab-bar-title__selected"
   >
     <view class="tab-content" slot="tab-content-0"><articles/></view>
-    <view class="tab-content" slot="tab-content-1"><players/></view>
+    <view slot="tab-content-1"><players/></view>
     <view class="tab-content" slot="tab-content-2"><records/></view>
   </mp-tabs>
 </view>

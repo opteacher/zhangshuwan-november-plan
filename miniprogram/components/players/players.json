@@ -6,6 +6,7 @@
     "mp-cell": "/miniprogram_npm/weui-miniprogram/cell/cell",
     "mp-toptips": "/miniprogram_npm/weui-miniprogram/toptips/toptips",
     "mp-searchbar": "/miniprogram_npm/weui-miniprogram/searchbar/searchbar",
-    "mp-badge": "/miniprogram_npm/weui-miniprogram/badge/badge"
+    "mp-badge": "/miniprogram_npm/weui-miniprogram/badge/badge",
+    "join": "../join/join"
   }
 }

@@ -23,7 +23,7 @@ async function enbVoteQaul(voteType) {
 Page({
   data: {
     message: {},
-    curIndex: 0,
+    curIndex: 1,
     list: [{
       text: "活动说明",
       iconPath: "/images/home.png",
@@ -60,6 +60,7 @@ Page({
     // 记录转发和发朋友圈记录
     const res = await enbVoteQaul(voteType)
     this.setData(res)
+    await new Promise(resolve => setTimeout(resolve, 2000))
     return {
       title: "我爱我家——定格韶山温馨家园 城发承载幸福启航",
       query: "pages/index/index",

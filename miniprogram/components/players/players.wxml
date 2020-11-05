@@ -1,47 +1,60 @@
-<view class="search-player">
-  <mp-searchbar search="{{search}}"/>
-</view>
-<scroll-view class="players-view" scroll-y="true">
-  <view class="weui-form-preview" style="margin-bottom: 2vh" wx:for="{{players}}" wx:key="unique">
-    <view class="weui-form-preview__hd">
+<view wx:if="{{!showAddPlayer}}">
+  <view class="search-player">
+    <mp-searchbar search="{{search}}"/>
+  </view>
+  <scroll-view class="players-view" scroll-y="true">
+    <view class="weui-form-preview" style="margin-bottom: 2vh" wx:for="{{players}}" wx:key="unique">
+      <view class="weui-form-preview__hd">
+          <view class="weui-form-preview__item">
+              <label class="weui-form-preview__label">姓名</label>
+              <em class="weui-form-preview__value">{{item.name}}</em>
+          </view>
+      </view>
+      <view class="weui-form-preview__bd">
         <view class="weui-form-preview__item">
-            <label class="weui-form-preview__label">姓名</label>
-            <em class="weui-form-preview__value">{{item.name}}</em>
+          <view class="weui-form-preview__label">门牌号</view>
+          <view class="weui-form-preview__value">{{item.room}}</view>
         </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">手机号</view>
+          <view class="weui-form-preview__value">{{item.phone}}</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">状态</view>
+          <view class="weui-form-preview__value" style="color: {{item.statColor}}">{{item.status}}</view>
+        </view>
+      </view>
+      <view class="weui-form-preview__ft">
+        <view
+          class="weui-form-preview__btn weui-form-preview__btn_default"
+          hover-class="weui-form-preview__btn_active"
+          data-target="{{item._id}}"
+          bindtap="onBanPlayerBtnClick"
+        >禁止参赛</view>
+        <view
+          class="weui-form-preview__btn"
+          hover-class="weui-form-preview__btn_active"
+          style="color: var(--danger-color)"
+          data-target="{{item._id}}"
+          bindtap="onDelPlayerBtnClick"
+        >删除</view>
+      </view>
     </view>
-    <view class="weui-form-preview__bd">
-      <view class="weui-form-preview__item">
-        <view class="weui-form-preview__label">房号</view>
-        <view class="weui-form-preview__value">{{item.room}}</view>
-      </view>
-      <view class="weui-form-preview__item">
-        <view class="weui-form-preview__label">手机号</view>
-        <view class="weui-form-preview__value">{{item.phone}}</view>
-      </view>
-      <view class="weui-form-preview__item">
-        <view class="weui-form-preview__label">状态</view>
-        <view class="weui-form-preview__value" style="color: {{item.statColor}}">{{item.status}}</view>
-      </view>
+  </scroll-view>
+</view>
+<view wx:else style="margin-bottom: 12vh">
+  <join mode="new" bind:newPlayerCreated="onNewPlayerCreated"/>
+  <button class="weui-btn" type="default" bindtap="onSwchToListBtnClick">取消</button>
+</view>
+<view class="upload-players-btn">
+  <view class="weui-flex">
+    <view class="weui-flex__item">
+      <button class="weui-btn oper-btn" type="default" bindtap="onClickUpload" style="width: auto">批量上传选手</button>
     </view>
-    <view class="weui-form-preview__ft">
-      <view
-        class="weui-form-preview__btn weui-form-preview__btn_default"
-        hover-class="weui-form-preview__btn_active"
-        data-target="{{item._id}}"
-        bindtap="onBanPlayerBtnClick"
-      >禁止参赛</view>
-      <view
-        class="weui-form-preview__btn"
-        hover-class="weui-form-preview__btn_active"
-        style="color: var(--danger-color)"
-        data-target="{{item._id}}"
-        bindtap="onDelPlayerBtnClick"
-      >删除</view>
+    <view class="weui-flex__item">
+      <button class="weui-btn oper-btn" type="primary" bindtap="onAddPlayerBtnClick" style="width: auto">新增选手</button>
     </view>
   </view>
-</scroll-view>
-<view class="upload-players-btn">
-  <button class="weui-btn w-100" type="primary" bindtap="onClickUpload">批量上传选手</button>
   <label class="weui-agree" for="weuiAgree">
     <view class="weui-agree__text">文档格式请咨询开发人员</view>
   </label>

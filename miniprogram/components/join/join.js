@@ -1,6 +1,12 @@
 const strUtil = require("../../utils/string")
 
 Component({
+  properties: {
+    mode: {
+      type: String,
+      value: "valid" //默认验证模式，也可设为【new】新增模式
+    }
+  },
   data: {
     player: {
       room: "",
@@ -47,22 +53,30 @@ Component({
     onBuildingChange(e) {
       this.setData({buildingIdx: e.detail.value})
     },
-    async onClickNext() {
+    onSubmitClick() {
+      switch (this.data.mode) {
+      case "new":
+        this._onNewPlayer()
+        break
+      case "valid":
+      default:
+        this._onToNext()
+      }
+    },
+    async _onToNext() {
       if (this.data.player.room === "1") {
         // 跳转到管理员页面
         wx.navigateTo({url: "../../pages/admin/admin"})
       } else {
         this.setData({subLoading: true})
-        // 拼接房号
-        let room = this.data.communities[this.data.communityIdx]
-        room += `${this.data.buildings[this.data.buildingIdx]}栋`
-        room += `${this.data.player.room}号`
+        // 拼接地址
+        const room = this._combRoom()
         const db = wx.cloud.database()
         try {
           // 检查该用户是否已提交过作品，如果提交过，则跳转到作品详情页面
           let res = await db.collection("article").where({room}).get()
           if (!res.data) {
-            throw new Error(`查询指定房号提交的作品失败！返回结构没有data字段。${res.errMsg}`)
+            throw new Error(`查询指定地址提交的作品失败！返回结构没有data字段。${res.errMsg}`)
           }
           if (res.data.length >= 1) {
             this.setData({
@@ -104,6 +118,35 @@ Component({
         }
         this.setData({subLoading: false})
       }
+    },
+    async _onNewPlayer() {
+      try {
+        const player = {
+          name: this.data.player.name,
+          phone: this.data.player.phone,
+          room: this._combRoom(),
+          status: "未参赛"
+        }
+        let res = await wx.cloud.callFunction({
+          name: "addPlayer",
+          data: player
+        })
+        if (!res.result || !res.result._id) {
+          throw new Error("新增选手错误！返回值缺少_id字段")
+        }
+        this.triggerEvent("newPlayerCreated", Object.assign(player, {
+          _id: res.result._id
+        }))
+      } catch(e) {
+        this.setData({
+          message: {type: "error", text: e.message || JSON.stringify(e)}
+        })
+      }
+    },
+    _combRoom() {
+      return this.data.communities[this.data.communityIdx]
+        + `${this.data.buildings[this.data.buildingIdx]}栋`
+        + `${this.data.player.room}号`
     }
   }
 })

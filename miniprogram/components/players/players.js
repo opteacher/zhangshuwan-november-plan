@@ -6,7 +6,8 @@ Component({
     players: [],
     toDelPlayerId: "",
     toBanPlayerId: "",
-    buttons: [{text: "取消"}, {text: "确定"}]
+    buttons: [{text: "取消"}, {text: "确定"}],
+    showAddPlayer: false
   },
   lifetimes: {
     attached() {
@@ -145,9 +146,27 @@ Component({
         // 再次刷新列表
         await this.updPlayers()
       } catch (e) {
+        if (e.errMsg === "chooseMessageFile:fail cancel") {
+          return Promise.resolve()
+        }
         this.setData({
           message: {type: "error", text: `发生未知错误！${e}`}
         })
+      }
+    },
+    onAddPlayerBtnClick() {
+      this.setData({showAddPlayer: true})
+    },
+    onSwchToListBtnClick() {
+      this.setData({showAddPlayer: false})
+    },
+    onNewPlayerCreated(newPlayer) {
+      if (newPlayer.detail._id) {
+        this.setData({
+          message: {type: "success", text: "新用户已被创建！"},
+          showAddPlayer: false
+        })
+        this.updPlayers().catch(e => {})
       }
     }
   }

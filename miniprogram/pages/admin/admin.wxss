@@ -1,26 +1,26 @@
+@import "../../app.wxss";
+
 .weui-tabs {
   height: 100%;
 }
 
 .weui-tabs-bar__wrp {
   border-bottom: 1px solid #eee;
-  /* margin-top: 10px; */
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
+  height: 6vh;
   z-index: 1;
 }
 
 .weui-tabs-swiper {
-  width: 100%;
   height: 100%;
 }
 
 .tab-content {
   height: 100%;
-  width: 100%;
-  margin-top: 36px;
+  margin-top: 6vh;
 }
 
 .weui-tabs-bar__title {

@@ -71,11 +71,20 @@ Page({
   async logShareAction(voteType) {
     // 记录转发和发朋友圈记录
     const res = await enbVoteQaul(voteType)
-    this.setData(res)
+    this.setData(res)    
+    await new Promise(resolve => setTimeout(resolve, 2000))
     return {
       title: "“我爱我家”作品评选——请为我的作品投上你关键一票",
       query: `pages/detail/detail?_id=${this.data.article._id}`,
-      path: `pages/index/index?_id=${this.data.article._id}`
+      path: `pages/detail/detail?_id=${this.data.article._id}`
     }
   },
+  onRepostBtnClick() {
+    wx.showShareMenu({
+      menus: ["shareAppMessage", "shareTimeline"]
+    })
+  },
+  onBackHomeBtnClick() {
+    wx.redirectTo({url: "../../pages/index/index"})
+  }
 })

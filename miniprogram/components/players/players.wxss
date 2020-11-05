@@ -2,14 +2,16 @@
 
 .search-player {
   position: fixed;
-  top: 36px;
+  top: 6vh;
   left: 0;
   right: 0;
+  height: 10vh;
 }
 
 .players-view {
-  margin-top: 96px;
-  height: 64vh;
+  height: 68vh;
+  margin-top: 16vh;
+  margin-bottom: 16vh;
 }
 
 .upload-players-btn {
@@ -17,5 +19,19 @@
   bottom: 0;
   left: 0;
   right: 0;
+  height: 12vh;
   padding: 2vh 2vw;
+  background-color: var(--light-bkgd-color);
+}
+
+.oper-btn {
+  margin: 0 1vw;
+}
+
+.oper-btn:first-child {
+  margin-left: 2vw;
+}
+
+.oper-btn:last-child {
+  margin-right: 2vw;
 }

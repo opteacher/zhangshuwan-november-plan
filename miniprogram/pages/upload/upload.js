@@ -138,7 +138,7 @@ Page({
     // 跳转到投票页面
     idxPage.setData({curIndex: 1})
     await new Promise(resolve => setTimeout(resolve, 500))
-    wx.navigateTo({url: `../../pages/detail/detail?_id=${articleId}`})
+    wx.redirectTo({url: `../../pages/detail/detail?_id=${articleId}`})
     return Promise.resolve()
   }
 })

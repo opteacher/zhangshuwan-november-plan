@@ -8,7 +8,7 @@
           <image wx:elif="{{index === 2}}" class="rank-badge" src="/images/crown_bronze.png"/>
       </view>
       <view>{{item.author}}</view>
-      <view style="font-size: 13px;color: #888888;">房号 {{item.room}}</view>
+      <view style="font-size: 13px;color: #888888;">{{item.room}}</view>
       <view slot="footer">
         <mp-icon type="field" icon="like" color="var(--danger-color)" size="{{25}}"/>
         <text style="color: var(--danger-color)">{{item.vote}}</text>

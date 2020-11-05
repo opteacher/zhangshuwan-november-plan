@@ -1,1 +1,43 @@
 /* pages/detail/detail.wxss */
+@import "../../app.wxss";
+
+.weui-form-preview__ft:before {
+  border-top: 0;
+}
+
+.weui-form-preview__ft:after {
+  content: " ";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 1px;
+  border-bottom: 1px solid var(--weui-FG-3);
+  color: var(--weui-FG-3);
+  -webkit-transform-origin: 0 100%;
+  transform-origin: 0 100%;
+  -webkit-transform: scaleY(.5);
+  transform: scaleY(.5);
+  left: 16px;
+}
+
+.weui-form-preview__btn_primary {
+  color: var(--primary-color);
+}
+
+.back-to-home {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 30px;
+  right: 20px;
+  border-radius: 100%;
+  background-color: var(--primary-color);
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.back-to-home__active {
+  background-color: var(--weui-TAG-TEXT-GREEN);
+}

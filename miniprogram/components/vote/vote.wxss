@@ -1,3 +1,5 @@
+@import "../../app.wxss";
+
 mp-searchbar {
   width: 100%;
   height: 60px;
@@ -41,14 +43,11 @@ mp-searchbar {
   border: 1px solid var(--primary-color);
   border-radius: 2px;
   text-align: center;
-  padding: 2vh 2vw;
+  padding: 1vh 2vw;
   margin-bottom: 1.5vh;
 }
 
-.article-pic {
-  margin-bottom: 1vh;
-}
-
-.article-result {
-  margin-bottom: 1vh;
+.test {
+  font-size: 10pt;
+  color: grey;
 }
