@@ -1,4 +1,4 @@
-@import "../../app.wxss"
+@import "../../app.wxss";
 
 /* pages/home/home.wxss */
 .home-panel {
@@ -20,4 +20,20 @@
   bottom: 70px;
   left: 0;
   right: 0;
+}
+
+.game-rule {
+  position: fixed;
+  width: 45px;
+  height: 45px;
+  bottom: 90px;
+  right: 20px;
+  border-radius: 100%;
+  background-color: var(--primary-color);
+  text-align: center;
+  opacity: 0.5;
+}
+
+.game-rule__active {
+  background-color: var(--weui-TAG-TEXT-GREEN);
 }

@@ -1,4 +1,50 @@
-<view class="weui-form-preview">
+<view>
+  <view>
+    <view style="text-align: center">
+      <text style="font-size: 20pt; font-weight:bold">作品展示</text>
+    </view>
+    <button class="weui-btn float-right back-to-vote" type="primary" size="mini" style="margin-top: 5pt" bindtap="onBackVoteBtnClick">投票首页 ></button>
+  </view>
+  <view class="article-card weui-flex">
+    <view style="width: 50vw">
+      <image class="w-100" src="{{article.picURL}}" mode="widthFix" bindtap="onPicLnkClick" data-src="{{article.picURL}}"/>
+      <view wx:if="{{article.declaration.length}}">
+        <text id="declaration">{{article.declaration}}</text>
+      </view>
+    </view>
+    <view class="weui-flex__item">
+      <view class="ml-20">
+        <text id="author">{{article.author}}</text>
+      </view>
+      <view class="ml-20">
+        <text id="room">{{article.room}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="vote-area" wx:if="{{showVoteBtn}}">
+    <view class="weui-flex">
+      <view class="weui-flex__item text-center ptb-20">
+        <text class="vote-info">{{article.vote}} 票</text>
+      </view>
+      <view class="weui-flex__item">
+        <button
+          class="weui-btn"
+          type="primary"
+          open-type="getUserInfo"
+          bindgetuserinfo="onVoteBtnClick"
+        >投票</button>
+        <button
+          class="weui-btn"
+          type="default"
+          bindtap="onRepostBtnClick"
+          open-type="share"
+        >转发</button>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="weui-form-preview" style="display: none">
   <view class="weui-form-preview__ft" wx:if="{{showVoteBtn}}">
     <button
       class="weui-form-preview__btn weui-form-preview__btn_primary p-0 br-0"
@@ -30,9 +76,9 @@
       <view class="weui-form-preview__value">{{article.vote}}</view>
     </view>
   </view>
-</view>
-<view class="back-to-home" hover-class="back-to-home__active">
-  <mp-icon icon="home" src="/images/home.png" color="white" type="field" size="{{45}}" bindtap="onBackHomeBtnClick" extClass="mt-5"/>
+  <view class="back-to-home" hover-class="back-to-home__active">
+    <mp-icon icon="home" src="/images/home.png" color="white" type="field" size="{{45}}" bindtap="onBackHomeBtnClick" extClass="mt-5"/>
+  </view>
 </view>
 <mp-dialog title="提示" show="{{showVoteDlg}}" bindbuttontap="onVoteConfirm" buttons="{{buttons}}">
   <view>确认投票该作品？</view>

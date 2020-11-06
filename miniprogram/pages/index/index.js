@@ -44,7 +44,7 @@ Page({
   },
   onLoad(option) {
     if (option && option.pgIdx) {
-      this.setData({curIndex: option.pgIdx})
+      this.setData({curIndex: parseInt(option.pgIdx)})
     }
   },
   onTabChange (e) {

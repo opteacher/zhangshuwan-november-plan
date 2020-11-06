@@ -1,0 +1,43 @@
+<view class="salary-modal">
+  <view class="salary-back {{show? 'active' : ''}}" bindtap="handleClose"/>
+  <view class="salary-content {{show ? 'active' : ''}}">
+    <view class="salary-modal-title">
+      <view class="salary-list-title">活动细则</view>
+      <view class="salary-btns">
+        <mp-icon icon="close" size="{{25}}" bindtap="handleClose"/>
+      </view>
+    </view>
+    <view class="desc-view">
+      <view class="weui-flex">
+        <view class="icon-box">
+          <mp-icon icon="time" color="var(--primary-color)" extClass="mr-10 mt--5"/>
+          <text style="font-weight: bold; font-size: 12pt">活动时间：</text>
+        </view>
+        <view class="weui-flex__item ml-20">
+          <view>2020年11月07日12：00起</view>
+          <view>2020年11月27日12：00止</view>
+        </view>
+      </view>
+      <view class="weui-flex">
+        <view class="icon-box">
+          <mp-icon icon="info" color="var(--primary-color)" extClass="mr-10 mt--5"/>
+          <text style="font-weight: bold; font-size: 12pt">投票规则：</text>
+        </view>
+        <view class="weui-flex__item ml-20">
+          <view>每个微信号每天投1票</view>
+          <view>分享至朋友圈可额外再投1票</view>
+          <view>分享至微信群可额外再投1票</view>
+        </view>
+      </view>
+      <view class="weui-flex">
+        <view class="icon-box">
+          <mp-icon icon="at" color="var(--primary-color)" extClass="mr-10 mt--5"/>
+          <text style="font-weight: bold; font-size: 12pt">主办单位：</text>
+        </view>
+        <view class="weui-flex__item ml-20">
+          韶山市城发集团房地产开发有限公司
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

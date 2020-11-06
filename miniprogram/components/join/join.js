@@ -89,28 +89,45 @@ Component({
             return
           }
 
-          // 校验用户提交的基本信息
-          res = await db.collection("player").where({
-            room,
-            name: this.data.player.name,
-            phone: this.data.player.phone
-          }).get()
-          let msgTxt = ""
-          if (!res.data || !res.data.length) {
-            msgTxt = "未查找到该用户，请检查填写信息是否正确！"
-          } else if (res.data[0].status === "禁赛") {
-            msgTxt = "该用户已被禁赛，请联系管理员！"
-          } else if (res.data[0].status === "参赛") {
-            msgTxt = "该用户已参赛，不可重复报名！"
-          }
-          const player = res.data[0]
+          // // 校验用户提交的基本信息
+          // res = await db.collection("player").where({
+          //   room,
+          //   name: this.data.player.name,
+          //   phone: this.data.player.phone
+          // }).get()
+          // let msgTxt = ""
+          // if (!res.data || !res.data.length) {
+          //   msgTxt = "未查找到该用户，请检查填写信息是否正确！"
+          // } else if (res.data[0].status === "禁赛") {
+          //   msgTxt = "该用户已被禁赛，请联系管理员！"
+          // } else if (res.data[0].status === "参赛") {
+          //   msgTxt = "该用户已参赛，不可重复报名！"
+          // }
+          // const player = res.data[0]
           
-          this.setData({subLoading: false})
-          if (msgTxt === "") {
-            wx.navigateTo({url: `/pages/upload/upload?${strUtil.cvtObjToUriParams(player)}`})
-          } else {
-            throw new Error(msgTxt)
+          // this.setData({subLoading: false})
+          // if (msgTxt === "") {
+          //   wx.navigateTo({url: `/pages/upload/upload?${strUtil.cvtObjToUriParams(player)}`})
+          // } else {
+          //   throw new Error(msgTxt)
+          // }
+
+          // 直接新增用户
+          let player = {
+            name: this.data.player.name,
+            phone: this.data.player.phone,
+            room: this._combRoom(),
+            status: "未参赛"
           }
+          res = await wx.cloud.callFunction({
+            name: "addPlayer",
+            data: player
+          })
+          if (!res.result || !res.result._id) {
+            throw new Error("新增选手错误！返回值缺少_id字段")
+          }
+          player = Object.assign(player, {_id: res.result._id})
+          wx.navigateTo({url: `/pages/upload/upload?${strUtil.cvtObjToUriParams(player)}`})
         } catch(e) {
           this.setData({
             message: {type: "error", text: e.message || JSON.stringify(e)}

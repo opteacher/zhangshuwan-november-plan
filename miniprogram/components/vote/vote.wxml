@@ -9,19 +9,16 @@
           <view class="article-pic">
             <image style="width: 100%;" src="{{item.picURL}}" mode="widthFix" data-target="{{item._id}}" bindtap="onPicLnkClick"/>
           </view>
-          <view class="article-title" style="text-align: left">
-            <view>
-              <text>{{item.author}}</text>
-            </view>
-            <view>
-              <text class="test">{{item.room}}</text>
-            </view>
+          <view wx:if="{{item.declaration.length}}">
+            <text style="font-size: 15pt">{{item.declaration}}</text>
           </view>
-          <view class="weui-flex mt-10" style="height: 32px">
-            <view class="weui-flex__item">
-              <view class="float-left">
-                <text>{{item.vote}} 票</text>
-              </view>
+          <view class="article-title">
+            <text style="font-size: 10pt; float: left">{{item.author}}</text>
+            <text class="author-room">{{item.room}}</text>
+          </view>
+          <view class="weui-flex mt-10 w-100" style="height: 32px">
+            <view class="weui-flex__item" style="text-align: left">
+              <text class="vertical-middle">{{item.vote}} 票</text>
             </view>
             <view class="weui-flex__item">
               <view class="float-right">

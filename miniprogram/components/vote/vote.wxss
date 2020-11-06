@@ -47,7 +47,8 @@ mp-searchbar {
   margin-bottom: 1.5vh;
 }
 
-.test {
+.author-room {
   font-size: 10pt;
   color: grey;
+  float: right;
 }

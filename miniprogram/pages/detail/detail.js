@@ -84,7 +84,7 @@ Page({
       menus: ["shareAppMessage", "shareTimeline"]
     })
   },
-  onBackHomeBtnClick() {
-    wx.redirectTo({url: "../../pages/index/index"})
+  onBackVoteBtnClick() {
+    wx.reLaunch({url: "../../pages/index/index?pgIdx=1"})
   }
 })

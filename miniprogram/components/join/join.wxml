@@ -11,13 +11,13 @@
       </picker>
     </mp-cell>
     <mp-cell prop="player.room" title="房号" ext-class="">
-      <input bindinput="onInputRoom" data-field="player.room" class="weui-input" placeholder="请输入房号"/>
+      <input bindinput="onInputRoom" data-field="player.room" class="weui-input" placeholder="请输入房号" type="number"/>
     </mp-cell>
     <mp-cell prop="player.name" title="姓名" ext-class="">
       <input bindinput="onInputName" data-field="player.name" class="weui-input" placeholder="请输入姓名"/>
     </mp-cell>
     <mp-cell prop="player.phone" title="手机号" ext-class="{{mode === 'new' ? 'weui-cell_vcode' : ''}}">
-        <input bindinput="onInputPhone" data-field="player.phone" class="weui-input" placeholder="请输入手机号"/>
+        <input bindinput="onInputPhone" data-field="player.phone" class="weui-input" placeholder="请输入手机号" type="number"/>
         <view wx:if="{{mode === 'new'}}" slot="footer" class="weui-vcode-btn" hover-class="link_active">获取验证码</view>
     </mp-cell>
   </mp-cells>

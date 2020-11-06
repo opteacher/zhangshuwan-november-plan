@@ -25,3 +25,7 @@
 <view class="weui-btn-area" style="display: none">
   <button class="weui-btn w-100" type="primary" bindtap="onShareBtnClick" open-type="share">分享</button>
 </view>
+<desc-rule-dialog show="{{showGameRule}}"/>
+<view class="game-rule" hover-class="game-rule__active">
+  <mp-icon icon="info" color="white" size="{{45}}" bindtap="onPopRuleBtnClick" class="vertical-middle"/>
+</view>

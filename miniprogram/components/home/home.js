@@ -1,5 +1,7 @@
 Component({
-  data: {},
+  data: {
+    showGameRule: false
+  },
   methods: {
     onShareBtnClick() {
       wx.showShareMenu({
@@ -10,6 +12,9 @@ Component({
     onNaviToJoinBtnClick() {
       const idxPage = getCurrentPages().find(page => page.route === "pages/index/index")
       idxPage.setData({curIndex: 3})
+    },
+    onPopRuleBtnClick() {
+      this.setData({showGameRule: true})
     }
   }
 })

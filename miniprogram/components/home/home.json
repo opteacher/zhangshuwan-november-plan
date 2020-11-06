@@ -1,6 +1,8 @@
 {
   "component": true,
   "usingComponents": {
-    "mp-icon": "/miniprogram_npm/weui-miniprogram/icon/icon"
+    "mp-icon": "/miniprogram_npm/weui-miniprogram/icon/icon",
+    "mp-halfScreenDialog": "/miniprogram_npm/weui-miniprogram/half-screen-dialog/half-screen-dialog",
+    "desc-rule-dialog": "../descRule/descRule"
   }
 }

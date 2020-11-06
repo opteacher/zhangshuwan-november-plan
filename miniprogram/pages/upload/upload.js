@@ -1,10 +1,12 @@
 const strUtil = require("../../utils/string")
 
+const MAX_FILE_SIZE = 10485760
 Page({
   data: {
     player: {},
     files: [],
     picture: "",
+    decl: "",
     subLoading: false,
     subDisable: false,
     message: {}
@@ -29,6 +31,14 @@ Page({
   },
   async uploadFile(files) {
     console.log('upload files', files)
+    // // 检验文件大小是否超标（10MB）
+    // if (files.contents.length > MAX_FILE_SIZE) {
+    //   this.setData({
+    //     message: {type: "error", text: "上传图片超出10MB的最大尺寸限制！"},
+    //     subLoading: false
+    //   })
+    //   return false
+    // }
     // 文件上传的函数，返回一个promise
     try {
       const glb = getApp().globalData
@@ -100,7 +110,9 @@ Page({
       // 组装作品结构，保存进数据库
       const article = {
         author: this.data.player.name,
+        authorId: this.data.player._id,
         room: this.data.player.room,
+        declaration: this.data.decl,
         vote: 0,
         picID: this.data.picture,
         picURL,
@@ -138,7 +150,10 @@ Page({
     // 跳转到投票页面
     idxPage.setData({curIndex: 1})
     await new Promise(resolve => setTimeout(resolve, 500))
-    wx.redirectTo({url: `../../pages/detail/detail?_id=${articleId}`})
+    wx.reLaunch({url: `../../pages/detail/detail?_id=${articleId}`})
     return Promise.resolve()
+  },
+  onDeclChange(e) {
+    this.setData({decl: e.detail.value})
   }
 })

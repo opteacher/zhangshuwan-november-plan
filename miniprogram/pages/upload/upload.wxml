@@ -2,18 +2,21 @@
   <mp-form id="form">
     <mp-cells>
       <mp-cell>
-        <mp-uploader
-          bindfail=""
-          bindsuccess=""
-          select="{{selectFile}}"
-          upload="{{uploadFile}}"
-          files="{{files}}"
-          max-count="1"
-          title="上传作品"
-          tips="图片格式必须为jpg，小于100MB"
+        <mp-uploader bindfail="" bindsuccess=""
+          select="{{selectFile}}" upload="{{uploadFile}}"
+          files="{{files}}" max-count="1" max-size="{{10 * 1024 * 1024}}"
+          title="上传作品" tips="图片格式必须为jpg，小于10MB"
         />
       </mp-cell>
     </mp-cells>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <textarea class="weui-textarea" placeholder="输入评选宣言（可选）" style="height: 3.3em" bindinput="onDeclChange"/>
+          <view class="weui-textarea-counter">{{decl.length}}/200</view>
+        </view>
+      </view>
+    </view>
     <view class="weui-btn-area">
         <button class="weui-btn" type="primary" loading="{{subLoading}}" disabled="{{subDisable}}" bindtap="onClickSubmit">确定</button>
     </view>
