@@ -54,6 +54,23 @@ Component({
       this.setData({buildingIdx: e.detail.value})
     },
     onSubmitClick() {
+      // 校验填写的信息
+      let msgTxt = ""
+      if (!this.data.player.phone) {
+        msgTxt = "未填写手机号"
+      }
+      if (!this.data.player.name) {
+        msgTxt = "未填写姓名"
+      }
+      if (!this.data.player.room) {
+        msgTxt = "未填写房号"
+      }
+      if (msgTxt.length) {
+        this.setData({
+          message: {type: "error", text: msgTxt}
+        })
+        return false
+      }
       switch (this.data.mode) {
       case "new":
         this._onNewPlayer()
@@ -72,9 +89,18 @@ Component({
         // 拼接地址
         const room = this._combRoom()
         const db = wx.cloud.database()
+        const _ = db.command
         try {
+          // 获取当前用户的openid，用于检测该用户是否用当前微信号报过名
+          let res = await wx.cloud.callFunction({name: "getOpenid"})
+          if (!res.result.openid) {
+            throw new Error("获取用户openid错误！返回值缺少openid字段")
+          }
+
           // 检查该用户是否已提交过作品，如果提交过，则跳转到作品详情页面
-          let res = await db.collection("article").where({room}).get()
+          res = await db.collection("article").where(_.or([
+            {_openid: res.result.openid}, {room}
+          ])).get()
           if (!res.data) {
             throw new Error(`查询指定地址提交的作品失败！返回结构没有data字段。${res.errMsg}`)
           }
@@ -88,7 +114,7 @@ Component({
             wx.navigateTo({url: `../../pages/detail/detail?_id=${article._id}`})
             return
           }
-
+      
           // // 校验用户提交的基本信息
           // res = await db.collection("player").where({
           //   room,
@@ -129,6 +155,7 @@ Component({
           player = Object.assign(player, {_id: res.result._id})
           wx.navigateTo({url: `/pages/upload/upload?${strUtil.cvtObjToUriParams(player)}`})
         } catch(e) {
+          console.log(e)
           this.setData({
             message: {type: "error", text: e.message || JSON.stringify(e)}
           })
@@ -137,6 +164,7 @@ Component({
       }
     },
     async _onNewPlayer() {
+      this.setData({subLoading: true})
       try {
         const player = {
           name: this.data.player.name,
@@ -159,6 +187,7 @@ Component({
           message: {type: "error", text: e.message || JSON.stringify(e)}
         })
       }
+      this.setData({subLoading: false})
     },
     _combRoom() {
       return this.data.communities[this.data.communityIdx]

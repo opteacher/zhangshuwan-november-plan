@@ -1,18 +1,24 @@
+@import "../../app.wxss";
+
 .top-3-panel {
-    background-color: var(--primary-color);
-    height: 30vh;
+  background-color: var(--primary-color);
+  height: 30vh;
 }
 
 .rank-view {
-    height: 100%;
-    padding-bottom: 60px;
+  height: 100%;
+  padding-bottom: 60px;
 }
 
 .rank-badge {
-    position: absolute;
-    right: -20rpx;
-    top: -20rpx;
-    width: 20px;
-    height: 20px;
-    z-index: 1024;
+  position: absolute;
+  right: -20rpx;
+  top: -20rpx;
+  width: 20px;
+  height: 20px;
+  z-index: 1024;
+}
+
+.rank-index {
+  font-size: 20pt;
 }

@@ -1,6 +1,6 @@
 Component({
   data: {
-    showGameRule: false
+    showRule: false
   },
   methods: {
     onShareBtnClick() {
@@ -14,7 +14,7 @@ Component({
       idxPage.setData({curIndex: 3})
     },
     onPopRuleBtnClick() {
-      this.setData({showGameRule: true})
+      this.setData({showRule: true})
     }
   }
 })

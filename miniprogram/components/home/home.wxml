@@ -21,11 +21,12 @@
     <text>主办单位：韶山市城发集团房地产开发有限公司</text>
   </view>
 </view>
-<image src="/images/home_background.jpeg" style="width: 100%; height: 100%" bindtap="onNaviToJoinBtnClick"/>
+<image class="w-100" src="/images/home_background.jpeg" bindtap="onNaviToJoinBtnClick" mode="widthFix"/>
 <view class="weui-btn-area" style="display: none">
   <button class="weui-btn w-100" type="primary" bindtap="onShareBtnClick" open-type="share">分享</button>
 </view>
-<desc-rule-dialog show="{{showGameRule}}"/>
+<desc-rule-dialog show="{{showRule}}"/>
 <view class="game-rule" hover-class="game-rule__active">
-  <mp-icon icon="info" color="white" size="{{45}}" bindtap="onPopRuleBtnClick" class="vertical-middle"/>
+  <!-- <mp-icon icon="info" color="white" size="{{45}}" bindtap="onPopRuleBtnClick" class="vertical-middle"/> -->
+  <button class="weui-btn" type="default" bindtap="onPopRuleBtnClick">活动规则</button>
 </view>

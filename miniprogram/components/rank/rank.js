@@ -1,7 +1,8 @@
 Component({
   data: {
     message: {},
-    rankList: []
+    rankList: [],
+    rankColor: ""
   },
   lifetimes: {
     attached() {

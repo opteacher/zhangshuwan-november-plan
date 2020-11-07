@@ -23,7 +23,7 @@ async function enbVoteQaul(voteType) {
 Page({
   data: {
     message: {},
-    curIndex: 1,
+    curIndex: 0,
     list: [{
       text: "活动说明",
       iconPath: "/images/home.png",

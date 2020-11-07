@@ -23,15 +23,22 @@
 }
 
 .game-rule {
+  width: 100%;
   position: fixed;
-  width: 45px;
-  height: 45px;
-  bottom: 90px;
-  right: 20px;
-  border-radius: 100%;
-  background-color: var(--primary-color);
+  bottom: 60px;
   text-align: center;
-  opacity: 0.5;
+}
+
+.game-rule .weui-btn {
+  width: 100px;
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  border-top: 1px solid var(--primary-color);
+  border-left: 1px solid var(--primary-color);
+  border-right: 1px solid var(--primary-color);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .game-rule__active {
