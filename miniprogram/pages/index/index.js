@@ -40,11 +40,18 @@ Page({
       text: "报名参赛",
       iconPath: "/images/join.png",
       selectedIconPath: "/images/join_act.png"
-    }]
+    }],
+    showSinglePgMask: false
   },
   onLoad(option) {
     if (option && option.pgIdx) {
       this.setData({curIndex: parseInt(option.pgIdx)})
+    }
+
+    // 查看场景值，如果是单页模式，显示引导遮罩指引用户前往小程序
+    const lOptions = wx.getLaunchOptionsSync()
+    if (lOptions.scene === 1154) {
+      this.setData({showSinglePgMask: true})
     }
   },
   onTabChange (e) {
@@ -63,7 +70,6 @@ Page({
     await new Promise(resolve => setTimeout(resolve, 2000))
     return {
       title: "我爱我家——定格韶山温馨家园 城发承载幸福启航",
-      query: "pages/index/index",
       path: "pages/index/index",
       imageUrl: "/images/home_background.jpeg"
     }

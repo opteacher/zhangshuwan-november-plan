@@ -1,7 +1,7 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
 
-cloud.init({env: "test-8gz67lpof2b9185f"})
+cloud.init({env: "prod-7gyout13519352e3"})
 const db = cloud.database()
 const _ = db.command
 
@@ -11,7 +11,7 @@ exports.main = async event => {
   return db.collection("vote").where({
     _openid: wxContext.OPENID,
     type: event.voteType,
-    timestamp:_.exists(false)
+    timestamp: _.gte(new Date(new Date().toLocaleDateString()).getTime())
   }).update({
     data: {available: true}
   })

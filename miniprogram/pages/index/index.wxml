@@ -4,5 +4,11 @@
   <rank id="compRank" class="wh-100" wx:if="{{curIndex === 2}}"/>
   <join id="compJoin" class="wh-100" wx:if="{{curIndex === 3}}"/>
 </view>
+<view id="singlePageMask" wx:if="{{showSinglePgMask}}">
+  <view style="position: fixed; bottom: 0; right: 0; text-align: right">
+    <text style="color: white">点击“前往小程序”报名参赛或为中意的作品投上关键一票</text>
+    <image src="/images/arrow_down.png" style="width: 25px; height: 25px; float: right"/>
+  </view>
+</view>
 <mp-tabbar class="bottom-nav" list="{{list}}" current="{{curIndex}}" bindchange="onTabChange"/>
 <mp-toptips msg="{{message.text}}" type="{{message.type}}" show="{{message.text}}"/>

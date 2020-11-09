@@ -39,7 +39,7 @@ async function doVote(articleId, _openid, type) {
     // 记录投票
     await wx.cloud.callFunction({
       name: "logVote",
-      data: {_openid, articleId, type, available: true}
+      data: {_openid, articleId, type}
     })
   } catch (e) {
     return Promise.resolve({

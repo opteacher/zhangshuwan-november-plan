@@ -42,6 +42,12 @@
       </view>
     </view>
   </view>
+  <view id="singlePageMask" wx:if="{{showSinglePgMask}}">
+    <view style="position: fixed; bottom: 0; right: 0; text-align: right">
+      <text style="color: white">点击“前往小程序”为该选手投上你宝贵的一票</text>
+      <image src="/images/arrow_down.png" style="width: 25px; height: 25px; float: right"/>
+    </view>
+  </view>
 </view>
 
 <view class="weui-form-preview" style="display: none">

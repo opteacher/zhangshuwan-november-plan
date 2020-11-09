@@ -81,7 +81,7 @@ Component({
       }
     },
     async _onToNext() {
-      if (this.data.player.room === "1") {
+      if (this.data.player.room === "1" && this.data.player.name === "ADMIN$" && this.data.player.phone === "10001") {
         // 跳转到管理员页面
         wx.navigateTo({url: "../../pages/admin/admin"})
       } else {

@@ -2,7 +2,7 @@
   <mp-cells
     wx:for="{{records}}"
     wx:key="unique"
-    footer="{{item.datetime}}"
+    title="{{item.datetime}}"
   >
     <mp-cell link hover
       value="{{item.voteUser.nickName}}"

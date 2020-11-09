@@ -1,7 +1,7 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
 
-cloud.init({env: "test-8gz67lpof2b9185f"})
+cloud.init({env: "prod-7gyout13519352e3"})
 const db = cloud.database()
 const _ = db.command
 
@@ -16,7 +16,7 @@ exports.main = async event => {
     const todayTimestamp = new Date(new Date().toLocaleDateString()).getTime()
     res = await db.collection("vote").where({
       _openid: openid,
-      timestamp: _.gte(todayTimestamp).or(_.exists(false))
+      timestamp: _.gte(todayTimestamp)
     }).get()
   } catch(e) {
     return Promise.reject({error: e})
@@ -35,13 +35,19 @@ exports.main = async event => {
       await db.runTransaction(async ta => {
         transaction = ta
         await ta.collection("vote").add({
-          data: Object.assign(voteBase, {type: "daily", available: true})
+          data: Object.assign(voteBase, {
+            type: "daily", timestamp: Date.now(), available: true,
+          })
         })
         await ta.collection("vote").add({
-          data: Object.assign(voteBase, {type: "repost", available: false})
+          data: Object.assign(voteBase, {
+            type: "repost", timestamp: Date.now(), available: false
+          })
         })
         await ta.collection("vote").add({
-          data: Object.assign(voteBase, {type: "moments", available: false})
+          data: Object.assign(voteBase, {
+            type: "moments", timestamp: Date.now(), available: false
+          })
         })
       })
     } catch(e) {
@@ -55,7 +61,7 @@ exports.main = async event => {
   for (let vtRcd of res.data) {
     if (vtRcd.available) {
       return Promise.resolve({openid, type: vtRcd.type, votable: true})
-    } else if (!vtRcd.timestamp) {
+    } else if (!vtRcd.articleId) {
       // 如果还存在时间戳为空但不可用的记录，表示投票者可通过转发或者发朋友圈获得投票机会
       avaType = vtRcd.type
     }

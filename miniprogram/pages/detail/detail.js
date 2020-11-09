@@ -9,7 +9,8 @@ Page({
     showVoteDlg: false,
     buttons: [{text: "取消"}, {text: "确定"}],
     votingUser: {},
-    voteType: ""
+    voteType: "",
+    showSinglePgMask: false
   },
   async reload(articleId) {
     try {
@@ -25,6 +26,13 @@ Page({
     }
   },
   async onLoad(option) {
+    // 查看场景值，如果是单页模式，显示引导遮罩指引用户前往小程序
+    const lOptions = wx.getLaunchOptionsSync()
+    if (lOptions.scene === 1154) {
+      this.setData({showSinglePgMask: true})
+      return
+    }
+
     wx.showLoading({title: "加载中"})
     this.setData({showVoteBtn: option.voteBtn === "false" ? false : true})
     await this.reload(option._id)
@@ -75,7 +83,6 @@ Page({
     await new Promise(resolve => setTimeout(resolve, 2000))
     return {
       title: "“我爱我家”作品评选——请为我的作品投上你关键一票",
-      query: `pages/detail/detail?_id=${this.data.article._id}`,
       path: `pages/detail/detail?_id=${this.data.article._id}`
     }
   },
