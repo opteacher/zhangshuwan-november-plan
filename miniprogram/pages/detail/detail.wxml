@@ -23,7 +23,7 @@
   </view>
   <view class="vote-area" wx:if="{{showVoteBtn}}">
     <view class="weui-flex">
-      <view class="weui-flex__item text-center ptb-20">
+      <view class="weui-flex__item text-center">
         <text class="vote-info">{{article.vote}} 票</text>
       </view>
       <view class="weui-flex__item">
@@ -37,6 +37,7 @@
           class="weui-btn"
           type="default"
           bindtap="onRepostBtnClick"
+          style="display: none"
           open-type="share"
         >转发</button>
       </view>

@@ -6,7 +6,8 @@
 } */
 
 .vote-info {
-  font-size: 25pt;
+  font-size: 15pt;
+  margin-top: 5px;
 }
 
 .weui-form-preview__ft:after {
@@ -72,7 +73,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 5vh 5vw;
+  padding: 2vh 2vw;
   background-color: white;
 }
 

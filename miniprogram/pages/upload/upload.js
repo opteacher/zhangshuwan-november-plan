@@ -3,6 +3,7 @@ const strUtil = require("../../utils/string")
 const MAX_FILE_SIZE = 10485760
 Page({
   data: {
+    showForm: false,
     player: {},
     files: [],
     picture: "",
@@ -11,12 +12,25 @@ Page({
     subDisable: false,
     message: {}
   },
-  onLoad(option) {
-    this.setData({
-      player: option,
-      selectFile: this.selectFile.bind(this),
-      uploadFile: this.uploadFile.bind(this)
-    })
+  async onLoad(option) {
+    const db = wx.cloud.database()
+    try {
+      let res = await db.collection("setting").limit(1).get()
+      if (!res.data || !res.data.length) {
+        throw new Error("查询配置表错误！返回值缺少data字段")
+      }
+      const setting = res.data[0]
+      this.setData({
+        showForm: setting.showForm,
+        player: option,
+        selectFile: this.selectFile.bind(this),
+        uploadFile: this.uploadFile.bind(this)
+      })
+    } catch(e) {
+      this.setData({
+        message: {type: "error", text: e.message || JSON.stringify(e)}
+      })
+    }
   },
   selectFile(files) {
     console.log('files', files)

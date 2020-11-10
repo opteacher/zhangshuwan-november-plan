@@ -1,5 +1,5 @@
 <view class="container">
-  <mp-form id="form">
+  <mp-form id="form" wx:if="{{showForm}}">
     <mp-cells>
       <mp-cell>
         <mp-uploader bindfail="" bindsuccess=""
@@ -21,5 +21,6 @@
         <button class="weui-btn" type="primary" loading="{{subLoading}}" disabled="{{subDisable}}" bindtap="onClickSubmit">确定</button>
     </view>
   </mp-form>
+  <image wx:else src="/images/join_background.jpeg" style="width: 100%; height: 100%"/>
 </view>
 <mp-toptips msg="{{message.text}}" type="{{message.type}}" show="{{message.text}}"/>

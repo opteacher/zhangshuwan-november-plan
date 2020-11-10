@@ -1,4 +1,4 @@
-<mp-form id="form">
+<mp-form id="form" wx:if="{{showForm}}">
   <mp-cells title="基本信息" footer="{{mode === 'valid' ? '系统会验证信息真实，请如实填写。已经提交过作品的用户可输入房号查询已提交的作品' : ''}}">
     <mp-cell prop="player.room" title="小区" ext-class="weui-cell_select ml-16">
       <picker bindchange="onCommunityChange" value="{{communityIdx}}" range="{{communities}}">
@@ -22,6 +22,7 @@
     </mp-cell>
   </mp-cells>
 </mp-form>
+<image wx:else src="/images/join_background.jpeg" style="width: 100%; height: 100%"/>
 <view class="weui-btn-area">
   <button class="weui-btn" type="primary" loading="{{subLoading}}" bindtap="onSubmitClick">{{mode === 'valid' ? '下一步' : '确认'}}</button>
 </view>
