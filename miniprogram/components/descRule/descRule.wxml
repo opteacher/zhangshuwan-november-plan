@@ -13,8 +13,8 @@
         <text style="font-weight: bold; font-size: 12pt">活动时间：</text>
       </view>
       <view class="weui-flex__item ml-20">
-        <view>2020年11月09日12：00起</view>
-        <view>2020年11月27日12：00止</view>
+        <view>2020年11月10日12：00起</view>
+        <view>2020年12月09日12：00止</view>
       </view>
     </view>
     <view class="weui-flex">

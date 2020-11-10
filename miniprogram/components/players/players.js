@@ -2,6 +2,7 @@ const strUtil = require("../../utils/string")
 
 Component({
   data: {
+    showForm: false,
     message: {},
     players: [],
     toDelPlayerId: "",
@@ -10,8 +11,21 @@ Component({
     showAddPlayer: false
   },
   lifetimes: {
-    attached() {
-      this.updPlayers().catch(e => {})
+    async attached() {
+      const db = wx.cloud.database()
+      try {
+        let res = await db.collection("setting").limit(1).get()
+        if (!res.data || !res.data.length) {
+          throw new Error("查询配置表错误！返回值缺少data字段")
+        }
+        const setting = res.data[0]
+        this.setData({showForm: setting.showForm})
+        this.updPlayers().catch(e => {})
+      } catch(e) {
+        this.setData({
+          message: {type: "error", text: e.message || JSON.stringify(e)}
+        })
+      }
     }
   },
   methods: {

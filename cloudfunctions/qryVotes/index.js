@@ -2,7 +2,7 @@
 const cloud = require('wx-server-sdk')
 const _ = require("lodash")
 
-cloud.init({env: "test-8gz67lpof2b9185f"})
+cloud.init({env: "prod-7gyout13519352e3"})
 const db = cloud.database()
 
 // 云函数入口函数

@@ -9,9 +9,7 @@
 }
 
 .players-view {
-  height: 68vh;
-  margin-top: 16vh;
-  margin-bottom: 16vh;
+  margin-top: 10vh;
 }
 
 .upload-players-btn {
