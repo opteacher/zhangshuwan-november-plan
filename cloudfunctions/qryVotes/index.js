@@ -1,16 +1,17 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
-const _ = require("lodash")
 
 cloud.init({env: "prod-7gyout13519352e3"})
 const db = cloud.database()
+const _ = db.command
 
 // 云函数入口函数
-exports.main = async () => {
+exports.main = async event => {
   try {
     let res = await db.collection("vote").where({
-      timestamp: db.command.exists(true)
-    }).get()
+      articleId: _.exists(true),
+      timestamp: _.exists(true)
+    }).skip(event.page || 0).get()
     if (!res.data) {
       throw new Error("查询投票记录失败！返回值缺少data字段")
     }

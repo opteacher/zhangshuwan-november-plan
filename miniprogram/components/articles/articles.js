@@ -1,25 +1,32 @@
 Component({
   data: {
     message: {},
+    begIdx: 0,
     articles: [],
     toDelArticle: "",
     toUpdArticleVote: null,
     buttons: [{text: "取消"}, {text: "确定"}]
   },
   lifetimes: {
-    attached() {
-      this.updArticles().catch(e => {})
+    async attached() {
+      wx.showLoading({title: "加载中"})
+      await this.updArticles()
+      wx.hideLoading()
     }
   },
   methods: {
-    async updArticles() {
-      wx.showLoading({title: "加载中"})
+    async updArticles(refresh = false) {
+      if (refresh) {
+        this.setData({begIdx: 0})
+      }
       try {
-        let res = await wx.cloud.database().collection("article").get()
-        this.setData({articles: res.data || []})
-        wx.hideLoading()
+        let res = await wx.cloud.database().collection("article").skip(this.data.begIdx).get()
+        const newArticles = res.data.length ? res.data : []
+        this.setData({
+          articles: refresh ? newArticles : this.data.articles.concat(newArticles)
+        })
       } catch (e) {
-        wx.hideLoading()
+        console.log(e.message || JSON.stringify(e))
         this.setData({
           message: {type: "error", text: `更新作品列表失败！${e.message || JSON.stringify(e)}`}
         })
@@ -47,7 +54,7 @@ Component({
           })
         }
       }
-      this.updArticles().catch(e => {})
+      this.updArticles(true).catch(e => {})
       this.setData({toDelArticle: ""})
     },
     onUpdArticleVoteBtnClick(e) {
@@ -74,8 +81,14 @@ Component({
           })
         }
       }
-      this.updArticles().catch(e => {})
+      this.updArticles(true).catch(e => {})
       this.setData({toUpdArticleVote: null})
+    },
+    async onScrollBtm() {
+      this.setData({begIdx: this.data.begIdx + 20})
+      wx.showLoading({title: "加载中"})
+      await this.updArticles()
+      wx.hideLoading()
     }
   }
 })

@@ -1,4 +1,4 @@
-<scroll-view scroll-y="true" style="height: 90vh;margin: 0 1vw 0 1vw;">
+<scroll-view scroll-y="true" style="height: 90vh; margin: 0 1vw 0 1vw;" bindscrolltolower="onScrollBtm">
   <view class="weui-form-preview" style="margin-top: 2vh" wx:for="{{articles}}" wx:key="unique">
     <view class="weui-form-preview__bd">
       <image style="width: 100%;" src="{{item.picURL}}" mode="widthFix"/>

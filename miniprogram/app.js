@@ -18,7 +18,7 @@ App({
         //   如不填则使用默认环境（第一个创建的环境）
         // env: 'my-env-id',
         env: "prod-7gyout13519352e3",
-        // env: "prod-7gyout13519352e3",
+        // env: "test-8gz67lpof2b9185f",
         traceUser: true
       })
     }

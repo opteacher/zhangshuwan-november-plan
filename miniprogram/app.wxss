@@ -30,6 +30,11 @@
   padding-bottom: 20px;
 }
 
+.plr-16 {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
 .br-0 {
   border-radius: 0;
 }
@@ -64,6 +69,10 @@
 
 .mt-10 {
   margin-top: 10px;
+}
+
+.mb-60 {
+  margin-bottom: 60px;
 }
 
 .text-center {

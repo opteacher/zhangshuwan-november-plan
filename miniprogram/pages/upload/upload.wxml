@@ -12,8 +12,8 @@
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
         <view class="weui-cell__bd">
-          <textarea class="weui-textarea" placeholder="输入评选宣言（可选）" style="height: 3.3em" bindinput="onDeclChange"/>
-          <view class="weui-textarea-counter">{{decl.length}}/200</view>
+          <textarea class="weui-textarea" placeholder="输入评选宣言（可选）" style="height: 3.3em" bindinput="onDeclChange" maxlength="{{100}}"/>
+          <view class="weui-textarea-counter">{{decl.length}}/100</view>
         </view>
       </view>
     </view>

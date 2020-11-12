@@ -54,6 +54,8 @@ async function doVote(articleId, _openid, type) {
 Component({
   data: {
     message: {},
+    begIdx: 0,
+    articles: [],
     articlesOdd: [],
     articlesEven: [],
     pictureList: [],
@@ -69,15 +71,24 @@ Component({
     }
   },
   methods: {
-    async updArticles() {
+    async updArticles(refresh = false) {
       wx.showLoading({title: "加载中"})
       const db = wx.cloud.database()
       try {
-        let res = await db.collection("article").get()
+        if (refresh) {
+          this.setData({begIdx: 0})
+        }
+        let res = await db.collection("article").skip(this.data.begIdx).get()
         if (!res.data) {
           throw new Error("作品列表结构错误！")
         }
-        const articles = res.data
+        let articles = []
+        if (refresh) {
+          articles = res.data
+        } else {
+          const newArticles = res.data.length ? res.data : []
+          articles = this.data.articles.concat(newArticles)
+        }
 
         // 将列表按索引的奇偶分割成两个
         let articlesOdd = []
@@ -91,7 +102,7 @@ Component({
           }
           pictureList.push(articles[i].picURL)
         }
-        this.setData({articlesOdd, articlesEven, pictureList})
+        this.setData({articles, articlesOdd, articlesEven, pictureList})
       } catch(e) {
         this.setData({
           message: {type: "error", text: `获取作品列表失败！${e.message || JSON.stringify(e)}`}
@@ -126,10 +137,18 @@ Component({
         this.setData({message: res.message})
       }
       this.setData({toVoteArticleId: ""})
-      return this.updArticles()
+      return this.updArticles(true)
     },
     onPicLnkClick(e) {
       wx.navigateTo({url: `../../pages/detail/detail?_id=${e.currentTarget.dataset.target}`})
+    },
+    async onScrollBtm() {
+      this.setData({
+        begIdx: this.data.begIdx + 20
+      })
+      wx.showLoading({title: "加载中"})
+      await this.updArticles()
+      wx.hideLoading()
     }
   }
 })

@@ -16,8 +16,7 @@ Component({
     },
     subLoading: false,
     message: {},
-    communities: ["百合苑", "樟树湾"],
-    communityIdx: 0,
+    community: "百合苑",
     buildings: [],
     buildingIdx: 0
   },
@@ -56,10 +55,11 @@ Component({
       this._onInputChange("player.phone", e)
     },
     onCommunityChange(e) {
+      const community = e.currentTarget.dataset.target
       this.setData({
-        communityIdx: e.detail.value,
+        community,
         buildings: Array.from({
-          length: e.detail.value == 0 ? 22 : 17
+          length: community == "百合苑" ? 22 : 17
         }, (_, i)=> i + 1),
         buildingIdx: 0
       })
@@ -204,7 +204,7 @@ Component({
       this.setData({subLoading: false})
     },
     _combRoom() {
-      return this.data.communities[this.data.communityIdx]
+      return this.data.community
         + `${this.data.buildings[this.data.buildingIdx]}栋`
         + `${this.data.player.room}号`
     }

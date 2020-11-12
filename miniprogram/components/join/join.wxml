@@ -1,9 +1,14 @@
 <mp-form id="form" wx:if="{{showForm}}">
   <mp-cells title="基本信息" footer="{{mode === 'valid' ? '系统会验证信息真实，请如实填写。已经提交过作品的用户可输入房号查询已提交的作品' : ''}}">
-    <mp-cell prop="player.room" title="小区" ext-class="weui-cell_select ml-16">
-      <picker bindchange="onCommunityChange" value="{{communityIdx}}" range="{{communities}}">
-        <view class="weui-select weui-select_in-select-after">{{communities[communityIdx]}}</view>
-      </picker>
+    <mp-cell prop="player.room" title="小区">
+      <view class="weui-flex">
+        <view class="weui-flex__item">
+          <button class="weui-btn" type="{{community === '百合苑' ? 'primary' : 'default'}}" style="width: 30vw" bindtap="onCommunityChange" data-target="百合苑">百合苑</button>
+        </view>
+        <view class="weui-flex__item">
+          <button class="weui-btn" type="{{community === '樟树湾' ? 'primary' : 'default'}}" style="width: 30vw" bindtap="onCommunityChange" data-target="樟树湾">樟树湾</button>
+        </view>
+      </view>
     </mp-cell>
     <mp-cell prop="player.room" title="楼栋" ext-class="weui-cell_select ml-16">
       <picker bindchange="onBuildingChange" value="{{buildingIdx}}" range="{{buildings}}">
@@ -21,6 +26,9 @@
         <view wx:if="{{mode === 'new'}}" slot="footer" class="weui-vcode-btn" hover-class="link_active">获取验证码</view>
     </mp-cell>
   </mp-cells>
+  <view wx:if="{{mode === 'valid'}}" class="mt-10 plr-16">
+    <text style="color: var(--primary-color)">如需修改报名信息，请通过0731-55675555联系管理员进行信息修改</text>
+  </view>
 </mp-form>
 <image wx:else src="/images/join_background.jpeg" style="width: 100%; height: 100%"/>
 <view class="weui-btn-area">

@@ -4,6 +4,7 @@ Component({
   data: {
     showForm: false,
     message: {},
+    begIdx: 0,
     players: [],
     toDelPlayerId: "",
     toBanPlayerId: "",
@@ -20,7 +21,7 @@ Component({
         }
         const setting = res.data[0]
         this.setData({showForm: setting.showForm})
-        this.updPlayers().catch(e => {})
+        await this.updPlayers()
       } catch(e) {
         this.setData({
           message: {type: "error", text: e.message || JSON.stringify(e)}
@@ -51,7 +52,7 @@ Component({
         })
       }
       this.setData({toBanPlayerId: ""})
-      this.updPlayers().catch(e => {})
+      this.updPlayers(true).catch(e => {})
     },
     onDelPlayerBtnClick(e) {
       this.setData({toDelPlayerId: e.currentTarget.dataset.target})
@@ -74,17 +75,20 @@ Component({
         })
       }
       this.setData({toDelPlayerId: ""})
-      this.updPlayers().catch(e => {})
+      this.updPlayers(true).catch(e => {})
     },
-    async updPlayers() {
-      let res = await wx.cloud.database().collection("player").get()
+    async updPlayers(refresh = false) {
+      if (refresh) {
+        this.setData({begIdx: 0})
+      }
+      let res = await wx.cloud.database().collection("player").skip(this.data.begIdx).get()
       if (!res.data) {
         this.setData({
           message: {type: "error", text: `查询选手失败！${res.errMsg}`}
         })
         return Promise.reject(res.errMsg)
       }
-      const players = res.data.map(player => {
+      const newPlayers = res.data.map(player => {
         let statColor = "black"
         switch (player.status) {
           case "参赛":
@@ -96,8 +100,10 @@ Component({
         }
         return Object.assign(player, {statColor})
       })
-      this.setData({players})
-      return Promise.resolve(players)
+      this.setData({
+        players: refresh ? newPlayers : this.data.players.concat(newPlayers)
+      })
+      return Promise.resolve(this.data.players)
     },
     search: function (value) {
       return new Promise((resolve, reject) => {
@@ -158,7 +164,7 @@ Component({
         }
         
         // 再次刷新列表
-        await this.updPlayers()
+        await this.updPlayers(true)
       } catch (e) {
         if (e.errMsg === "chooseMessageFile:fail cancel") {
           return Promise.resolve()
@@ -180,8 +186,14 @@ Component({
           message: {type: "success", text: "新用户已被创建！"},
           showAddPlayer: false
         })
-        this.updPlayers().catch(e => {})
+        this.updPlayers(true).catch(e => {})
       }
+    },
+    async onScrollBtm() {
+      this.setData({
+        begIdx: this.data.begIdx + 20
+      })
+      await this.updPlayers()
     }
   }
 })

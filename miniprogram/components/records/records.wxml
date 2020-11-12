@@ -1,4 +1,4 @@
-<scroll-view class="rank-view" scroll-y="true">
+<scroll-view class="rank-view" scroll-y="true" bindscrolltolower="onScrollBtm">
   <mp-cells
     wx:for="{{records}}"
     wx:key="unique"

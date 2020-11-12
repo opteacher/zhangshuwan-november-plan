@@ -11,7 +11,9 @@ exports.main = async event => {
   return db.collection("vote").where({
     _openid: wxContext.OPENID,
     type: event.voteType,
-    timestamp: _.gte(new Date(new Date().toLocaleDateString()).getTime())
+    articleId: _.exists(false),
+    timestamp: _.gte(new Date(new Date().toLocaleDateString()).getTime()),
+    available: false
   }).update({
     data: {available: true}
   })

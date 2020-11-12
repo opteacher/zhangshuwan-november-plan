@@ -1,41 +1,42 @@
 <view class="search-bar" style="display: none">
   <mp-searchbar bindselectresult="selectResult" search="{{search}}"/>
 </view>
-<view class="display-area">
-  <scroll-view class="articles-view" scroll-y="true">
-    <view class="flex-wrp">
-      <view class="flex-item" wx:for="{{[articlesOdd, articlesEven]}}" wx:for-item="articles" wx:key="unique">
-        <view class="article-item" wx:for="{{articles}}" wx:key="unique">
-          <view class="article-pic">
-            <image style="width: 100%;" src="{{item.picURL}}" mode="widthFix" data-target="{{item._id}}" bindtap="onPicLnkClick"/>
+<view class="plr-16" style="height: 11vh">
+  <text style="color: var(--danger-color); font-size: 15pt">温馨提示：禁止作弊刷票，违者取消评奖资格！</text>
+</view>
+<scroll-view class="articles-view" scroll-y="true" bindscrolltolower="onScrollBtm">
+  <view class="flex-wrp">
+    <view class="flex-item" wx:for="{{[articlesOdd, articlesEven]}}" wx:for-item="articles" wx:key="unique">
+      <view class="article-item" wx:for="{{articles}}" wx:key="unique">
+        <view class="article-pic">
+          <image style="width: 100%;" src="{{item.picURL}}" mode="widthFix" data-target="{{item._id}}" bindtap="onPicLnkClick"/>
+        </view>
+        <view wx:if="{{item.declaration.length}}">
+          <text class="hide-of-words">{{item.declaration}}</text>
+        </view>
+        <view class="article-title">
+          <text style="font-size: 10pt; float: left">{{item.author}}</text>
+          <text class="author-room">{{item.room}}</text>
+        </view>
+        <view class="weui-flex mt-10 w-100" style="height: 32px">
+          <view class="weui-flex__item" style="text-align: left">
+            <text class="vertical-middle">{{item.vote}} 票</text>
           </view>
-          <view wx:if="{{item.declaration.length}}">
-            <text style="font-size: 15pt">{{item.declaration}}</text>
-          </view>
-          <view class="article-title">
-            <text style="font-size: 10pt; float: left">{{item.author}}</text>
-            <text class="author-room">{{item.room}}</text>
-          </view>
-          <view class="weui-flex mt-10 w-100" style="height: 32px">
-            <view class="weui-flex__item" style="text-align: left">
-              <text class="vertical-middle">{{item.vote}} 票</text>
-            </view>
-            <view class="weui-flex__item">
-              <view class="float-right">
-                <button class="weui-btn" type="primary" size="mini"
-                  data-target="{{item._id}}"
-                  open-type="getUserInfo"
-                  bindgetuserinfo="onVoteBtnClick"
-                  loading="{{voteLoadingArticle === item._id}}"
-                >选择</button>
-              </view>
+          <view class="weui-flex__item">
+            <view class="float-right">
+              <button class="weui-btn" type="primary" size="mini"
+                data-target="{{item._id}}"
+                open-type="getUserInfo"
+                bindgetuserinfo="onVoteBtnClick"
+                loading="{{voteLoadingArticle === item._id}}"
+              >选择</button>
             </view>
           </view>
         </view>
       </view>
     </view>
-  </scroll-view>
-</view>
+  </view>
+</scroll-view>
 <mp-toptips msg="{{message.text}}" type="{{message.type}}" show="{{message.text}}"/>
 <mp-dialog title="提示" show="{{toVoteArticleId !== ''}}" bindbuttontap="onVoteConfirm" buttons="{{buttons}}">
   <view>确认投票该作品？</view>

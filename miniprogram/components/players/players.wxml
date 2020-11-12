@@ -2,7 +2,10 @@
   <view class="search-player" style="display: none">
     <mp-searchbar search="{{search}}"/>
   </view>
-  <scroll-view class="players-view" scroll-y="true" style="{{showForm ? 'height: 74vh; margin-bottom: 16vh' : 'height: 90vh'}}">
+  <scroll-view class="players-view" scroll-y="true"
+    style="{{showForm ? 'height: 74vh; margin-bottom: 16vh' : 'height: 90vh'}}"
+    bindscrolltolower="onScrollBtm"
+  >
     <view class="weui-form-preview" style="margin-bottom: 2vh" wx:for="{{players}}" wx:key="unique">
       <view class="weui-form-preview__hd">
           <view class="weui-form-preview__item">

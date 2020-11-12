@@ -1,4 +1,4 @@
-<scroll-view class="rank-view" scroll-y="true">
+<scroll-view class="rank-view" scroll-y="true" bindscrolltolower="onScrollBtm">
   <mp-cells>
     <mp-cell link hover wx:for="{{rankList}}" wx:key="unique" data-target="{{item._id}}" bindtap="onToDetialBtnClick">
       <view slot="title" style="position: relative;margin-right: 10px;">
