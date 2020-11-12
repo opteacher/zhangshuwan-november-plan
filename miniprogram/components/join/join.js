@@ -207,6 +207,9 @@ Component({
       return this.data.community
         + `${this.data.buildings[this.data.buildingIdx]}栋`
         + `${this.data.player.room}号`
+    },
+    onDialManager() {
+      wx.makePhoneCall({phoneNumber: "0731-55675555"})
     }
   }
 })
