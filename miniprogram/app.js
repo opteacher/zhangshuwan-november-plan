@@ -27,7 +27,8 @@ App({
       wxp: wxp,
       pfy: promisify,
       db: wx.cloud.database(),
-      secret: "268ca42ef1b8c48f2c65c6227a1d11c9"
+      secret: "268ca42ef1b8c48f2c65c6227a1d11c9",
+      fileServer: "http://42.194.147.175:4000"
     }
 
     // wx.cloud.callFunction({

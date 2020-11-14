@@ -1,0 +1,1 @@
+rsync -avr --delete --exclude-from='exclude.list' * root@42.194.147.175:/pjt/file-server

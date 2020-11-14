@@ -1,5 +1,8 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
+const http = require("http")
+const util = require("util")
+const querystring = require("querystring")
 
 cloud.init({env: "test-8gz67lpof2b9185f"})
 const db = cloud.database()
@@ -15,7 +18,13 @@ exports.main = event => db.runTransaction(async transaction => {
       throw new Error("查询作品错误！返回值缺少data字段")
     }
     // 删除图片文件
-    await cloud.deleteFile({fileList: [res.data.picID]})
+    await util.promisify(http.request)("http://42.194.147.175:4000", {
+      method: "DELETE",
+      auth: "opteacher:59524148",
+      path: `/zhangshuwan_november_plan/api/v1/files/delete?${querystring.stringify({
+        fname: res.data.picID
+      })}`
+    })
     // 修改选手状态为未参赛
     await transaction.collection("player").where({
       name: res.data.author,

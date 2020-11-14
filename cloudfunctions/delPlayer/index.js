@@ -1,5 +1,7 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
+const http = require("http")
+const util = require("util")
 
 cloud.init({env: "test-8gz67lpof2b9185f"})
 const db = cloud.database()
@@ -14,7 +16,13 @@ exports.main = event => db.runTransaction(async transaction => {
       // 删除作品的投票记录
       await transaction.collection("vote").where({articleId: article._id}).remove()
       // 删除图片文件
-      await cloud.deleteFile({fileList: [article.picID]})
+      await util.promisify(http.request)("http://42.194.147.175:4000", {
+        method: "DELETE",
+        auth: "opteacher:59524148",
+        path: `/zhangshuwan_november_plan/api/v1/files/delete?${querystring.stringify({
+          fname: article.picID
+        })}`
+      })
       // 删除作品
       await transaction.collection("article").doc(article._id).remove()
     }
