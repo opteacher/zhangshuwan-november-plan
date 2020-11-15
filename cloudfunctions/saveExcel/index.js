@@ -2,7 +2,7 @@
 const cloud = require('wx-server-sdk')
 const { Workbook } = require('exceljs')
 
-cloud.init({env: "prod-7gyout13519352e3"})
+cloud.init({env: "test-8gz67lpof2b9185f"})
 const db = cloud.database()
 
 async function parseExcel(fileID) {

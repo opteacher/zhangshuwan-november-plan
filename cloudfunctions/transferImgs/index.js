@@ -2,8 +2,9 @@
 const cloud = require('wx-server-sdk')
 const axios = require("axios")
 const FormData = require("form-data")
+const Duplex = require("stream").Duplex
 
-cloud.init({env: "prod-7gyout13519352e3"})
+cloud.init({env: "test-8gz67lpof2b9185f"})
 const db = cloud.database()
 
 function getLastBySeq(str, seq = "/") {
@@ -15,7 +16,8 @@ function getLastBySeq(str, seq = "/") {
 }
 
 // 云函数入口函数
-exports.main = async () => {
+exports.main = async (event) => {
+  const callback = event.callback || (() => {})
   let res = null
   try {
     // 收集所有作品
@@ -26,43 +28,45 @@ exports.main = async () => {
         break
       }
       articles = articles.concat(res.data)
+      callback(1, `查询到${res.data.length}条作品记录`)
     }
 
     // 罗列图片信息
     let imgInfs = []
-    for (let article of articles) {
+    for (let i = 0; i < articles.length; ++i) {
+      const article = articles[i]
       imgInfs.push({
         articleId: article._id,
         picID: article.picID,
+        picURL: article.picURL,
         destName: `${article.author}_${getLastBySeq(article.picURL)}`
       })
+      callback(2, `构建作者：${article.author}的图片信息`, [i, articles.length])
     }
 
     // 图片迁移
     const baseURL = "http://42.194.147.175:4000/zhangshuwan_november_plan"
     for (let i = 0; i < imgInfs.length; ++i) {
       const imgInf = imgInfs[i]
-      res = await cloud.downloadFile({fileID: imgInf.picID})
-      if (res.errMsg) {
-        throw newError(`下载文件错误！错误码${res.errCode}-错误信息${res.errMsg}`)
-      }
-      let form = new FormData()
-      form.append(imgInf.destName, res.fileContent)
-      form.append("fileKey", imgInfs.destName)
-      await axios.post(`${baseURL}/api/v1/files/upload`, form, {
+      res = await axios.get(`${baseURL}/api/v1/files/download`, {
+        params: {fileURL: imgInf.picURL, fileName: imgInf.destName},
         auth: {username: "opteacher", password: "59524148"}
       })
       // 拼接图片URL
       imgInfs[i].picURL = `${baseURL}/assets/images/${imgInf.destName}`
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      callback(3, `迁移图片：${imgInf.destName}`, [i, imgInfs.length])
     }
 
     // 更新数据库
     return db.runTransaction(async ta => {
       try {
-        for (let imgInf of imgInfs) {
+        for (let i = 0; i < imgInfs.length; ++i) {
+          const imgInf = imgInfs[i]
           await ta.collection("article").doc(imgInf.articleId).update({
             data: {picID: imgInf.destName, picURL: imgInf.picURL}
           })
+          callback(4, `修改数据库记录，当前作品：${imgInf.articleId}`, [i, imgInfs.length])
         }
       } catch(e) {
         await transaction.rollback(e)
