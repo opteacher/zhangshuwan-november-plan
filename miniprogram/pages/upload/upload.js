@@ -66,8 +66,7 @@ Page({
       if (res.statusCode != 200) {
         throw new Error(res.data || res.errMsg)
       }
-
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      await new Promise(resolve => setTimeout(resolve, 500))
       
       this.setData({
         picture: {name: fileName, url: fileURL},
