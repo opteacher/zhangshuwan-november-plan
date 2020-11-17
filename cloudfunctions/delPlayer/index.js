@@ -2,7 +2,7 @@
 const cloud = require('wx-server-sdk')
 const axios = require("axios")
 
-cloud.init({env: "test-8gz67lpof2b9185f"})
+cloud.init({env: "prod-7gyout13519352e3"})
 const db = cloud.database()
 
 // 云函数入口函数
@@ -15,7 +15,7 @@ exports.main = event => db.runTransaction(async transaction => {
       // 删除作品的投票记录
       await transaction.collection("vote").where({articleId: article._id}).remove()
       // 删除图片文件
-      await axios.delete("http://42.194.147.175:4000/zhangshuwan_november_plan/api/v1/files/delete", {
+      await axios.delete("https://boysenberry-ok4uhinb.pai.tcloudbase.com:5523/zhangshuwan_november_plan/api/v1/files/delete", {
         params: {fname: article.picID},
         auth: {username: "opteacher", password: "59524148"}
       })

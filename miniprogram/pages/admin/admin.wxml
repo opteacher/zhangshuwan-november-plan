@@ -19,6 +19,7 @@
           </view>
         </block>
         <button class="weui-btn" type="primary" bindtap="onTransferBtnClick" loading="{{transferring}}">开始迁移</button>
+        <button class="weui-btn" type="default" bindtap="onRollbackBtnClick" loading="{{rollbacking}}">还原</button>
       </view>
     </view>
   </mp-tabs>

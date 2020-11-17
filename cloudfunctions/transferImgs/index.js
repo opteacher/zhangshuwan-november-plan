@@ -4,7 +4,7 @@ const axios = require("axios")
 const FormData = require("form-data")
 const Duplex = require("stream").Duplex
 
-cloud.init({env: "test-8gz67lpof2b9185f"})
+cloud.init({env: "prod-7gyout13519352e3"})
 const db = cloud.database()
 
 function getLastBySeq(str, seq = "/") {
@@ -45,7 +45,7 @@ exports.main = async (event) => {
     }
 
     // 图片迁移
-    const baseURL = "http://42.194.147.175:4000/zhangshuwan_november_plan"
+    const baseURL = "https://boysenberry-ok4uhinb.pai.tcloudbase.com:5523/zhangshuwan_november_plan"
     for (let i = 0; i < imgInfs.length; ++i) {
       const imgInf = imgInfs[i]
       res = await axios.get(`${baseURL}/api/v1/files/download`, {
@@ -54,7 +54,7 @@ exports.main = async (event) => {
       })
       // 拼接图片URL
       imgInfs[i].picURL = `${baseURL}/assets/images/${imgInf.destName}`
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      await new Promise(resolve => setTimeout(resolve, 2000))
       callback(3, `迁移图片：${imgInf.destName}`, [i, imgInfs.length])
     }
 

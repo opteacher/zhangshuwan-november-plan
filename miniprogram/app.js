@@ -17,8 +17,8 @@ App({
         //   此处请填入环境 ID, 环境 ID 可打开云控制台查看
         //   如不填则使用默认环境（第一个创建的环境）
         // env: 'my-env-id',
-        env: "test-8gz67lpof2b9185f",
-        // env: "prod-7gyout13519352e3",
+        env: "prod-7gyout13519352e3",
+        // env: "test-8gz67lpof2b9185f",
         traceUser: true
       })
     }
@@ -28,7 +28,7 @@ App({
       pfy: promisify,
       db: wx.cloud.database(),
       secret: "268ca42ef1b8c48f2c65c6227a1d11c9",
-      fileServer: "http://42.194.147.175:4000"
+      fileServer: "https://boysenberry-ok4uhinb.pai.tcloudbase.com:5523"
     }
 
     // wx.cloud.callFunction({
